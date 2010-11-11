@@ -1,10 +1,10 @@
+# MobiFlex Mobile UI Un-framework
+
 	                          _|        _|      _|_|  _|                    
 	_|_|_|  _|_|      _|_|    _|_|_|          _|      _|    _|_|    _|    _|
 	_|    _|    _|  _|    _|  _|    _|  _|  _|_|_|_|  _|  _|_|_|_|    _|_|    
 	_|    _|    _|  _|    _|  _|    _|  _|    _|      _|  _|        _|    _|  
 	_|    _|    _|    _|_|    _|_|_|    _|    _|      _|    _|_|_|  _|    _|
-
-## MobiFlex Mobile UI Un-framework
 
 Right at this moment, we have a lot of mobile UI frameworks that are hitting the mobile scene and while a lot of them are very good, they do carry a bit of extra weight in a world where 'being light' is very important.  MobiFlex is a response to that and delivers just the core elements of what is required to build a cross-device mobile application.
 
