@@ -35,43 +35,80 @@ body {
 
 /* action bar */
 
-ul.mf-menu {
+.mf-menu {
     display: -webkit-box;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #2E2E2E), color-stop(0.5, #151515), color-stop(0.5, #000000), color-stop(1.0, #000000));
-    text-shadow: 0 2px 2px rgba(30, 30, 30, 0.3);
-    font-size: 0.6em;
-    color: white;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+    -webkit-user-select: none;
 }
 
-ul.mf-menu li {
-    -webkit-box-flex: 1;
+.mf-menu a {
+    color: #AAA;
     display: -webkit-box;
-    -webkit-box-pack: bottom;
+    font: bold 0.6em "Helvetica Neue", Helvetica;
+    margin: 3px 2px;
+    padding: 0 0 2px 0;
+    min-width: 56px;
+    -webkit-font-smoothing: antialiased;
+    -webkit-box-flex: 1;
     -webkit-box-orient: vertical;
-    margin: 0 2px;
-    padding: 0;
+    text-decoration: none;
+}
+
+.mf-menu a > * {
+    display: block;
+    text-align: center;
+    -webkit-user-select: none;
+}
+
+.mf-menu a > img {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#333));
+    -webkit-mask-position: center center;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 24px 24px;
+    height: 26px;
+    margin: 3px 0;
+}
+
+.mf-menu a.active {
+    -webkit-border-radius: 4px;
+    background: hsla(0, 0%, 60%, 0.3);
+    color: #FFF;
+}
+
+.mf-menu a.active > img {
+    /* using @jordandobson's iOS tab highlight: http://jordandobson.com/webkit_tab_bar_gradients/ */
+    background: -webkit-gradient(
+              linear,
+              left top,
+              left bottom,
+                    from(     rgba( 068,213,254,0 )),
+              color-stop(.43, rgba( 068,213,254,0 )),
+                      to(     rgba( 068,213,254,1 ))),
+            -webkit-gradient(
+              radial, 
+              60 162, 150, 
+              60 162, 149, 
+                    from(     rgba( 049,123,220,0 )), 
+                      to(     rgba( 049,123,220,1 ))),
+            -webkit-gradient(
+              radial, 
+              20 -43, 60, 
+              20 -43, 40, 
+              from(           rgba( 125,170,231,1 )), 
+              to(             rgba( 230,238,250,1 )));
+}
+
+ul.mf-menu a:first-child {
+    margin-left: 4px;
+}
+
+ul.mf-menu a:last-child {
+    margin-right: 4px;
 }
 
 ul.mf-menu li > * {
     display: block;
     text-align: center;
-}
-
-ul.mf-menu li img {
-    background-color: white; /* #323335;
-    background-image: -webkit-gradient(linear, 0% 0, 0% 100%, from(#7C8084), color-stop(0.02, #4A4D4F), to(#202122)); */
-    -webkit-mask-repeat: no-repeat;
-    height: 24px;
-    width: 24px;
-    margin: 8px auto;
-}
-
-ul.mf-menu li span {
-    padding-bottom: 6px;
-    display: none;
 }
 
 /* buttons */

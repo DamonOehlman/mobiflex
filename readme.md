@@ -16,6 +16,10 @@ While it won't be to everybody's tastes, MobiFlex requires either [jQuery](http:
 
 - [iScroll](http://cubiq.org/iscroll) - if you have `iScroll.js` included then elements with the `mf-scroll` class will use iScroll to handle overflow regions nicely.
 
+### Acknowledgments
+
+- Includes some sweet CSS3 gradients that mimic iOS tab bar highlights. Put together by [@jordandobson](http://jordandobson.com/) - the original source comes from [here](http://jordandobson.com/webkit_tab_bar_gradients/)
+
 ### It's a start
 
 There will definitely be room for improvement in what is presented here.  There will be opportunities to replace javascript with pure CSS implementations, etc, and please if you have skills in that area - feel free to fork mobiflex and I'll happily merge improvements back in. 

@@ -8,16 +8,20 @@ MOBIFLEX = (function() {
     
     /* internal functions */
     
-    function debug(msg) {
-        console.debug(msg);
-    } // debug
+    function getPage(pageId) {
+        // unhash the page id
+        pageId = unhash(pageId);
+        
+        // return the page if the page id is not empty, or null otherwise
+        return pageId ? $('#' + pageId).get(0) : null;
+    } // getPage
     
     /**
     This function takes a string page id and locates the specified
     DOM element, and then returns the parent DOM element
     */
     function getPager(page) {
-        return page.get(0).parentNode;
+        return page ? page.parentNode : null;
     } // getParent
     
     function init() {
@@ -28,6 +32,14 @@ MOBIFLEX = (function() {
         if (hashChangeEvent) {
             window.addEventListener('hashchange', handleHashChange, false);
         } // if
+        
+        // update the menu to contain the items laid out correctly...
+        $('.mf-menu a').each(function() {
+            $(this).html('<img/><strong>' + this.innerText + '</strong>');
+        });
+        
+        // handle click events for menu anchors
+        $('.mf-menu a').click(handleMenuItemClick);
     } // init
     
     function unhash(input) {
@@ -39,11 +51,11 @@ MOBIFLEX = (function() {
         pageId = unhash(pageId);
         
         // initialise variables
-        var page = $('#' + pageId),
+        var page = getPage(pageId),
             pager = $(getPager(page)),
             scrollingSupport = typeof iScroll !== 'undefined';
             
-        if (scrollingSupport && page.hasClass('mf-scroll') && (! scrollers[pageId])) {
+        if (scrollingSupport && $(page).hasClass('mf-scroll') && (! scrollers[pageId])) {
             // create the scroller
             scrollers[pageId] = new iScroll(pageId, {
                 checkDOMChanges: false
@@ -56,7 +68,7 @@ MOBIFLEX = (function() {
         } // if
         
         // update the current page
-        currentPage = '#' + (pageId);
+        currentPage = '#' + pageId;
         
         // switch the display
         pager.find('.current').removeClass('current');
@@ -71,14 +83,24 @@ MOBIFLEX = (function() {
         } // if
     } // handleHashChange
     
-    function handleTouchMove(evt) {
-        var targetParent = evt.target ? evt.target.parentNode : null;
-        if (targetParent && $(targetParent).hasClass('mf-pager')) {
-            debug('in a pager...');
+    function handleMenuItemClick(evt) {
+        // initialise variables
+        var menu = $(this).get(0).parentNode,
+            page = getPage(this.href.replace(/^.*#(.*)$/, '$1'));
+        
+        // TODO: run exec requests
+
+        // if the page exists, then update the active state 
+        if (page) {
+            // remove the active classes from the menu
+            $(menu).find('a').removeClass('active');
+            $(this).addClass('active');
+
+            return true;
         } // if
         
-        evt.preventDefault();
-    } // handleTouchMove
+        return false;
+    } // handleMenuItemClick
     
     /* exports */
     
@@ -101,7 +123,7 @@ MOBIFLEX = (function() {
         pageId = '#' + unhash(pageId);
         
         // find the specified element
-        var targetPage = $(pageId).get(0);
+        var targetPage = getPage(pageId);
         
         // if found, update the location hash
         if (targetPage) {
