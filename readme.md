@@ -15,3 +15,7 @@ While it won't be to everybody's tastes, MobiFlex requires either [jQuery](http:
 ### It's a start
 
 There will definitely be room for improvement in what is presented here.  There will be opportunities to replace javascript with pure CSS implementations, etc, and please if you have skills in that area - feel free to fork mobiflex and I'll happily merge improvements back in. 
+
+### Current Limitations
+
+- Only supports a single pager (identified with an mf-pager CSS class)
