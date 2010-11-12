@@ -6,45 +6,6 @@ MOBIFLEX = (function() {
         
     /* internal types */
     
-    function FlexPager(target) {
-        
-        // initialise variables
-        var yPan = 0,
-            jQTarget = $(target);
-        
-        /* event handlers */
-        
-        function handlePan(evt, x, y) {
-            // update the ypan
-            yPan = yPan - y;
-            
-            debug('total pan = ' + yPan);
-            
-            // update the transform on the object
-            jQTarget.css('-webkit-transform', 'translateY(' + yPan + 'px)');
-        } // handlePan
-        
-        var self = {
-            
-        };
-        
-        if (typeof COG.Touch !== 'undefined') {
-            // make this observable
-            COG.observable(self);
-            
-            // capture touches
-            COG.Touch.capture(target, {
-                observable: self
-            });
-
-            // bind event handlers
-            self.bind('pan', handlePan);
-        } // if
-        
-        
-        return self;
-    } // FlexPager
-    
     /* internal functions */
     
     function debug(msg) {
