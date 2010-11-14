@@ -1,4 +1,10 @@
 MOBIFLEX = (function() {
+    // initialise constants
+    // empty image converted using http://www.motobit.com/util/base64-decoder-encoder.asp
+    // var EMPTY_IMAGE = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAANSURBVAiZY/j//z8DAAj8Av6Fzas0AAAAAElFTkSuQmCC';
+    var EMPTY_IMAGE = 'R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+        
+    
     // initialise variables
     var currentPage = '',
         hashChangeEvent = 'onhashchange' in window,
@@ -35,7 +41,7 @@ MOBIFLEX = (function() {
         
         // update the menu to contain the items laid out correctly...
         $('.mf-menu a').each(function() {
-            $(this).html('<img/><strong>' + this.innerText + '</strong>');
+            $(this).html('<img src="data:image/png;base64,' + EMPTY_IMAGE + '"/><strong>' + this.innerText + '</strong>');
         });
         
         // handle click events for menu anchors
@@ -70,9 +76,15 @@ MOBIFLEX = (function() {
         // update the current page
         currentPage = '#' + pageId;
         
-        // switch the display
-        pager.find('.current').removeClass('current');
-        pager.find(currentPage).addClass('current');
+        // deactivate the current page (if one currently exists)
+        pager.find('.current')
+            .removeClass('current')
+            .trigger('pageDeactivate', pageId);
+        
+        // activate the new page
+        pager.find(currentPage)
+            .addClass('current')
+            .trigger('pageActivate', pageId);
     } // switchTo
     
     /* event handlers */

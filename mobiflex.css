@@ -6,14 +6,44 @@ html {
 
 body {
     height: 100%;
-}
-
-/* general layout controls */
-
-.mf-outer {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    height: 100%;
+}
+
+/* header styles */
+
+header.mf {
+    background: #333;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+}
+
+header.mf > * {
+    display: block;
+    margin: 8px 4px;
+}
+
+header.mf h1 {
+    color: hsla(0, 0%, 100%, 0.9);
+    -webkit-box-flex: 1;
+}
+
+header.mf a {
+    background: hsla(0, 0%, 20%, 0.8);
+    color: white;
+    padding: 4px 6px;
+    -webkit-border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+/* header buttons */
+
+header.mf a.back {
+    -webkit-mask-box-image: url(img/back-button-mask.png) 20 0 20 12;
+    padding-left: 14px;
+    margin-left: 0px;
 }
 
 /* multipage central element */
@@ -37,15 +67,16 @@ body {
 
 .mf-menu {
     display: -webkit-box;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #2E2E2E), color-stop(0.5, #151515), color-stop(0.5, #000000), color-stop(1.0, #000000));
+    background: #000;
     -webkit-user-select: none;
+    -webkit-box-pack: center;
 }
 
 .mf-menu a {
     color: #AAA;
     display: -webkit-box;
     font: bold 0.6em "Helvetica Neue", Helvetica;
-    margin: 3px 2px;
+    margin: 2px 1px 1px;
     padding: 0 0 2px 0;
     min-width: 56px;
     -webkit-font-smoothing: antialiased;
@@ -62,11 +93,11 @@ body {
 
 .mf-menu a > img {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#333));
+    border: 0px;
     -webkit-mask-position: center center;
     -webkit-mask-repeat: no-repeat;
-    -webkit-mask-size: 24px 24px;
-    height: 26px;
-    margin: 3px 0;
+    width: 28px;
+    margin: 2px auto;
 }
 
 .mf-menu a.active {
@@ -76,39 +107,7 @@ body {
 }
 
 .mf-menu a.active > img {
-    /* using @jordandobson's iOS tab highlight: http://jordandobson.com/webkit_tab_bar_gradients/ */
-    background: -webkit-gradient(
-              linear,
-              left top,
-              left bottom,
-                    from(     rgba( 068,213,254,0 )),
-              color-stop(.43, rgba( 068,213,254,0 )),
-                      to(     rgba( 068,213,254,1 ))),
-            -webkit-gradient(
-              radial, 
-              60 162, 150, 
-              60 162, 149, 
-                    from(     rgba( 049,123,220,0 )), 
-                      to(     rgba( 049,123,220,1 ))),
-            -webkit-gradient(
-              radial, 
-              20 -43, 60, 
-              20 -43, 40, 
-              from(           rgba( 125,170,231,1 )), 
-              to(             rgba( 230,238,250,1 )));
-}
-
-ul.mf-menu a:first-child {
-    margin-left: 4px;
-}
-
-ul.mf-menu a:last-child {
-    margin-right: 4px;
-}
-
-ul.mf-menu li > * {
-    display: block;
-    text-align: center;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#666));;
 }
 
 /* buttons */
