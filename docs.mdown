@@ -1,8 +1,0 @@
----
-layout: default
-title:  COG Documentation
----
-
-# COG Documentation
-
-Coming soon :/
