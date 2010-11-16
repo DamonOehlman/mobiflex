@@ -10,6 +10,49 @@ body {
     -webkit-box-orient: vertical;
 }
 
+/* some additional global styles */
+
+/* list styling */
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+ul li {
+    margin: 0;
+    padding: 0;
+}
+
+/* input control styling (courtesy of jQTouch) */
+
+ul li input, ul li select, ul li textarea {
+    color: #CCCCCC;
+    background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
+    border: 0;
+    font: normal 17px "Helvetica Neue", Helvetica;
+    padding: 0;
+    display: inline-block;
+    margin-left: 0px;
+    width: 100%;
+    -webkit-appearance: textarea;
+}
+
+/* general link styling (again kudos to jQTouch) */
+
+ul li a {
+    color: #fff;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    padding: 12px 10px 12px 10px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    text-shadow: rgba(0,0,0,.2) 0 1px 1px;
+}
+
 /* header styles */
 
 header.mf {
@@ -29,7 +72,7 @@ header.mf h1 {
 }
 
 header.mf a {
-    background: hsla(0, 0%, 20%, 0.8);
+    background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#333));
     color: white;
     padding: 4px 6px;
     -webkit-border-radius: 4px;
@@ -139,33 +182,6 @@ a.mf-border-dark {
     color: #FFF;
     background: hsla(0, 0%, 30%, 0.7);
     -webkit-border-image: url(img/button-dark.png) 12 12 12 12;
-}
-
-/* list styling */
-
-ul.mf {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
-
-ul.mf li {
-    margin: 0;
-    padding: 0;
-}
-
-/* input control styling (courtesy of jQTouch) */
-
-ul.mf li input, ul li select, ul li textarea {
-    color: #CCCCCC;
-    background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
-    border: 0;
-    font: normal 17px "Helvetica Neue", Helvetica;
-    padding: 0;
-    display: inline-block;
-    margin-left: 0px;
-    width: 100%;
-    -webkit-appearance: textarea;
 }
 
 /* flags and options */
