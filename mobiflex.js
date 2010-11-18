@@ -9,22 +9,120 @@ MOBIFLEX = (function() {
     var currentPage = '',
         hashChangeEvent = 'onhashchange' in window,
         scrollers = {},
-        pageStack = [];
+        pageStack = [],
+        options = {
+            ajaxLoad: true,
+            pagePath: '',
+            pageExt: '.html'
+        };
         
     /* internal types */
     
     /* internal functions */
     
+    function changePage(page) {
+        if (! page) {
+            return;
+        } // if
+        
+        // initialise variables
+        var pageId = page.id, 
+            pager = $(getPager(page)),
+            scrollingSupport = typeof iScroll !== 'undefined';
+            
+        if (scrollingSupport && $(page).hasClass('mf-scroll') && (! scrollers[pageId])) {
+            // create the scroller
+            scrollers[pageId] = new iScroll(pageId, {
+                checkDOMChanges: false
+            });
+            
+            // refresh the scroller
+            setTimeout(function() {
+                scrollers[pageId].refresh();
+            }, 0);
+        } // if
+        
+        if ('#' + pageId !== currentPage) {
+            $(module).trigger('pageChanging', pageId, unhash(currentPage));
+            
+            // update the current page
+            currentPage = '#' + pageId;
+            
+            // look for the current page in the stack
+            var pageIndex = pageStack.indexOf(currentPage);
+            
+            // if it exists, then we need to pop pages off
+            if (pageIndex >= 0) {
+                pageStack.pop();
+            } // if
+            // otherwise, push the page onto the stack
+            else {
+                pageStack.push(currentPage);
+            } // if..else
+
+            // blur any focused controls, which should hide the on-screen keyboard...
+            $(':focus').blur();
+
+            // deactivate the current page (if one currently exists)
+            pager.find('.current')
+                .removeClass('current')
+                .trigger('pageDeactivate', pageId);
+                
+            // refresh the page
+            refreshPage(pageId);
+
+            // activate the new page
+            pager.find(currentPage)
+                .addClass('current')
+                .trigger('pageActivate', pageId);
+
+            // update the location hash
+            location.hash = '!/' + pageId;
+            
+            // update the current control stages
+            refreshControlStates();
+        } // if        
+    } // changePage
+    
+    function createPage(pageId, content) {
+        var container = $('.mf-pager')[0];
+
+        $(container ? container : document.body).append(content);
+        $(module).trigger('pageCreate', pageId);
+        return $('#' + pageId)[0];
+    } // createPage
+    
     function debug(message) {
         console.debug(message);
     } // debug
     
-    function getPage(pageId) {
+    function getPage(pageId, callback) {
         // unhash the page id
         pageId = unhash(pageId);
+
+        // find the page in the existing elements
+        var page = pageId ? $('#' + pageId).get(0) : null;
         
-        // return the page if the page id is not empty, or null otherwise
-        return pageId ? $('#' + pageId).get(0) : null;
+        // if it exists, fire the callback
+        if (page && callback) {
+            callback(page);
+        }
+        // otherwise, attempt to load the page into the document and then fire the callback
+        else if (callback) {
+            if (options.ajaxLoad) {
+                $.get(
+                    options.pagePath + pageId + options.pageExt, 
+                    function(content, status, rawRequest) {
+                        callback(status === 'success' ? createPage(pageId, content) : null);
+                    });
+            }
+            else {
+                callback(null);
+            } // if..else
+        } // if..else
+        
+        // return the page
+        return page;
     } // getPage
     
     /**
@@ -66,7 +164,12 @@ MOBIFLEX = (function() {
         $('.mf-pager').each(function() {
             var activePage = $(this).find('.current').get(0);
             
-            switchTo(activePage ? activePage.id : $(this).children().first().attr('id'), true);
+            if (location.hash) {
+                switchTo(location.hash, true);
+            }
+            else {
+                switchTo(activePage ? activePage.id : $(this).children().first().attr('id'), true);
+            }
         });
         
         // refresh the control states
@@ -74,12 +177,21 @@ MOBIFLEX = (function() {
     } // init
     
     function refreshControlStates() {
-        var pageUrl = currentPage.replace(/^(.*)?\-.*$/, '$1');
+        var pageUrl = unhash(currentPage.replace(/^#?(.*)?\-.*$/, '$1')),
+            pageRegex = new RegExp('^.*#(\!\/)?' + pageUrl, 'i');
+            
+        globalRegex = pageRegex;
+            
         console.debug('activating button: ' + pageUrl);
         
         // add the styling for the links that are active
         $('a.active').removeClass('active');
-        $('a[href="' + pageUrl  + '"]').addClass('active');
+        $('a').each(function() {
+            pageRegex.lastIndex = -1;
+            if (pageRegex.test(this.href)) {
+                $(this).addClass('active');
+            } // if
+        });
 
         debug('page stack has ' + pageStack.length + ' items');
         if (pageStack.length > 1) {
@@ -99,65 +211,12 @@ MOBIFLEX = (function() {
             pageStack = [];
         } // if
         
-        // initialise variables
-        var page = getPage(pageId),
-            pager = $(getPager(page)),
-            scrollingSupport = typeof iScroll !== 'undefined';
-            
-        if (scrollingSupport && $(page).hasClass('mf-scroll') && (! scrollers[pageId])) {
-            // create the scroller
-            scrollers[pageId] = new iScroll(pageId, {
-                checkDOMChanges: false
-            });
-            
-            // refresh the scroller
-            setTimeout(function() {
-                scrollers[pageId].refresh();
-            }, 0);
-        } // if
-        
-        if (page && ('#' + pageId !== currentPage)) {
-            // update the current page
-            currentPage = '#' + pageId;
-            
-            // look for the current page in the stack
-            var pageIndex = pageStack.indexOf(currentPage);
-            
-            // if it exists, then we need to pop pages off
-            if (pageIndex >= 0) {
-                pageStack.pop();
-            } // if
-            // otherwise, push the page onto the stack
-            else {
-                pageStack.push(currentPage);
-            } // if..else
-
-            // blur any focused controls, which should hide the on-screen keyboard...
-            $(':focus').blur();
-
-            // deactivate the current page (if one currently exists)
-            pager.find('.current')
-                .removeClass('current')
-                .trigger('pageDeactivate', pageId);
-
-            // refresh the page
-            refreshPage(pageId);
-
-            // activate the new page
-            pager.find(currentPage)
-                .addClass('current')
-                .trigger('pageActivate', pageId);
-
-            // update the location hash
-            location.hash = pageId;
-            
-            // update the current control stages
-            refreshControlStates();
-        } // if
+        // get the requested page
+        getPage(pageId, changePage);
     } // switchTo
     
     function unhash(input) {
-        return input.replace(/^#(.*)/, '$1');
+        return input.replace(/^#?(\!\/)?(.*)/, '$2');
     } // unhash
     
     /* event handlers */
@@ -178,9 +237,11 @@ MOBIFLEX = (function() {
     } // handleDocumentClick
     
     function handleHashChange(evt) {
-        if (location.hash && (location.hash !== currentPage)) {
+        var newPage = unhash(location.hash);
+        
+        if (newPage && (newPage !== unhash(currentPage))) {
             debug('changing page in response to hash change');
-            switchTo(location.hash, true);
+            switchTo(newPage, true);
         } // if
     } // handleHashChange
     
@@ -190,13 +251,14 @@ MOBIFLEX = (function() {
             actionId = this.href.replace(/^.*#(.*)$/, '$1');
             
         // fire the action exec method
-        $(module).trigger('actionSelect', actionId);
-        
-        // return true if the page is defined, otherwise false
-        return typeof getPage(actionId) !== 'undefined';
+        $(module).trigger('actionSelect', unhash(actionId));
     } // handleMenuItemClick
     
     /* exports */
+    
+    function changeOptions(params) {
+        opts = $.extend(options, params);
+    } // changeOptions
     
     function getStack() {
         return pageStack;
@@ -232,6 +294,7 @@ MOBIFLEX = (function() {
     /* define the module */
     
     var module = {
+        opt: changeOptions,
         refresh: refreshPage,
         show: showPage,
         unwind: popLastPage,

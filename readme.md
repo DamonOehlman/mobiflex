@@ -26,6 +26,30 @@ While it won't be to everybody's tastes, MobiFlex requires either [jQuery](http:
 
 There will definitely be room for improvement in what is presented here.  There will be opportunities to replace javascript with pure CSS implementations, etc, and please if you have skills in that area - feel free to fork mobiflex and I'll happily merge improvements back in. 
 
+## Using Mobiflex
+
+### Setting Mobiflex Options
+
+	MOBIFLEX.opt({
+		pagePath: 'set page path', // default = ''
+		pageExt: 'set page ext', // default = html,
+		ajaxLoad: true/false // default = true
+	});
+	
+### Mobiflex Events
+
+Mobiflex uses jQuery style events and provides events on both the MOBIFLEX module for general notifications and also on page level elements.
+
+The global MOBIFLEX events are:
+
+- `pageCreate(evt, pageId)`
+- `pageChanging(evt, newId, oldId)`
+
+The page element (children of an mf-pager) events are:
+
+- `pageActivate(evt)`
+- `pageDeactivate(evt)`
+
 ## Links of Interest
 
 - [Using Mobiflex](http://sidelab.github.com/mobiflex/using.html)
