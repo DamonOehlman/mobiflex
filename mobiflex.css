@@ -5,6 +5,7 @@ html {
 }
 
 body {
+    margin: 0;
     height: 100%;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -95,15 +96,23 @@ header.mf a.back {
     -webkit-box-flex: 1;
     overflow: hidden;
     z-index: 1;
+    display: -webkit-box;
 }
 
 .mf-pager > * {
     display: none;
-    padding-bottom: 20px;
+    -webkit-box-flex: 1;
 }
 
 .mf-pager > .current {
     display: block;
+}
+
+/* scroller styles */
+
+.mf-scroll {
+    padding: 10px 0;
+    min-height: 100%;
 }
 
 /* action bar */
@@ -188,4 +197,12 @@ a.mf-border-dark {
 
 .mfo-vert {
     -webkit-box-orient: vertical;
+}
+
+/* media query customizations */
+
+@media all and (orientation:landscape) { 
+}
+
+@media screen and (max-device-width: 480px) and (orientation:landscape) {
 }

@@ -36,9 +36,6 @@ MOBIFLEX = (function() {
     } // getParent
     
     function init() {
-        // clear the location hash
-        location.hash = '';
-        
         // attach to the hash change event
         if (hashChangeEvent) {
             window.onhashchange = handleHashChange;
@@ -65,14 +62,24 @@ MOBIFLEX = (function() {
             } // if
         });
         
+        // initialise the pager to the use the appropriate first page
+        $('.mf-pager').each(function() {
+            var activePage = $(this).find('.current').get(0);
+            
+            switchTo(activePage ? activePage.id : $(this).children().first().attr('id'), true);
+        });
+        
         // refresh the control states
         refreshControlStates();
     } // init
     
     function refreshControlStates() {
+        var pageUrl = currentPage.replace(/^(.*)?\-.*$/, '$1');
+        console.debug('activating button: ' + pageUrl);
+        
         // add the styling for the links that are active
         $('a.active').removeClass('active');
-        $('a[href="' + currentPage + '"]').addClass('active');
+        $('a[href="' + pageUrl  + '"]').addClass('active');
 
         debug('page stack has ' + pageStack.length + ' items');
         if (pageStack.length > 1) {
@@ -209,7 +216,7 @@ MOBIFLEX = (function() {
         } // if
     } // refreshPage
     
-    function showPage(pageId) {
+    function showPage(pageId, resetStack) {
         // standardize the page id
         pageId = '#' + unhash(pageId);
         
@@ -218,7 +225,7 @@ MOBIFLEX = (function() {
         
         // if found, update the location hash
         if (targetPage) {
-            switchTo(pageId);
+            switchTo(pageId, resetStack);
         } // if
     } // showPage
     
