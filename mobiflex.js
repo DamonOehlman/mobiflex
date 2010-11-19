@@ -99,7 +99,7 @@ MOBIFLEX = (function() {
         // if we are creating containers for the loaded content, 
         // then wrap the page in div
         if (options.createContainers) {
-            pageContent = '<div id="' + pageId + '">' + content + '</div>';
+            pageContent = '<div id="' + pageId + '" class="mf-scroll">' + content + '</div>';
         } // if
 
         $(container ? container : document.body).append(pageContent);
@@ -191,13 +191,13 @@ MOBIFLEX = (function() {
         if (resetStack) {
             pageStack = [];
         } // if
-        
+
         // get the requested page
         getPage(pageId, changePage);
     } // switchTo
     
     function unhash(input) {
-        return input.replace(/^#?(\!\/)?(.*)/, '$2');
+        return input ? input.replace(/^#?(\!\/)?(.*)/, '$2') : '';
     } // unhash
     
     /* event handlers */
