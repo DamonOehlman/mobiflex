@@ -187,13 +187,9 @@ header.mf a.back {
     width: 28px;
     margin: 2px auto;
     
-    -webkit-mask-position: center center;
-    -moz-mask-position: center center;
-    mask-position: center center;
-
-    -webkit-mask-repeat: no-repeat;
-    -moz-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
+    -webkit-mask: 50% 50% none no-repeat;
+    -moz-mask: 50% 50% none no-repeat;
+    mask: 50% 50% none no-repeat;
 }
 
 .mf-menu a.active {
