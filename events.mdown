@@ -1,0 +1,19 @@
+---
+layout: default
+title:  Mobiflex Events
+---
+
+# Mobiflex Events
+
+Mobiflex makes use of the event system that is provided in both jQuery and Zepto.  To this end, the following events are fired on elements that are monitored / managed by mobiflex:
+
+## MOBIFLEX module events
+
+- `actionSelect` - Triggered when an action item is clicked.  Handlers for this event have the opportunity to modify members of the `actionInfo` that is passed in the event.  This includes the id of the action, which means that it is possible to redirect an event to a different page or action handler where appropriate.
+
+## Pager, um, Pages
+
+- `pageActivate` - A pageActivate event is triggered on a page HTML element (child of a `.mf-pager` classed element) when that page becomes the current page in the pager.
+
+- `pageDeactivate` - A pageDeactivate event is triggered when a page has been usurped (for want of a better word) as the current page.
+

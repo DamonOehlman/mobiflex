@@ -1,0 +1,52 @@
+body {
+    font: normal 1em Arial;
+}
+
+#container {
+    padding: 0 0 0 10px;
+    background: -webkit-gradient(linear, left top, left bottom, from(#93a7ac), color-stop(0.7, #dbe2e3));
+    color: #333;
+    border-top: 1px solid #8B8B8B;
+}
+
+h1, h2 {
+    color: hsla(0, 0%, 90%, 0.8);
+    margin: 2px 0;
+    font-size: 1.4em;
+    letter-spacing: 1px;
+    background: hsla(0, 0%, 30%, 0.2);
+    /*
+    border: 1px hsla(0, 0%, 80%, 0.2) solid;
+    border-right: 0;
+    */
+    padding: 5px 8px 3px;
+    -webkit-border-radius: 5px 0 0 5px;
+    -webkit-box-shadow: hsla(0, 0%, 20%, 0.8) 0 0 3px;
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
+p {
+    padding: 0 10px 0 0;
+    text-align: justify;
+    line-height: 1.5em;
+}
+
+/* mobiscroll customizations */
+
+.mf-scroll {
+    padding: 10px 0;
+    min-height: 100%;
+}
+
+/* menu images */
+
+a[href='#!/main'] img {
+    -webkit-mask-image: url(../images/53-house.png);
+}
+
+a[href='#!/docs'] img {
+    -webkit-mask-image: url(../images/96-book.png);
+}
