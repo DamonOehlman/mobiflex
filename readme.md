@@ -31,9 +31,12 @@ There will definitely be room for improvement in what is presented here.  There 
 ### Setting Mobiflex Options
 
 	MOBIFLEX.opt({
+		autoInit: true/false, // initialise on document.ready, default = true
+		ajaxLoad: true/false, // support dynamically loading pages, default = true
+		createContainers: true/false, // wrap loaded pages in a <div>, default = true
 		pagePath: 'set page path', // default = ''
 		pageExt: 'set page ext', // default = html,
-		ajaxLoad: true/false // default = true
+		startScreen: 'set page to start on', // default = null
 	});
 	
 ### Mobiflex Events

@@ -14,6 +14,7 @@ MOBIFLEX = (function() {
         options = {
             autoInit: true,
             ajaxLoad: true,
+            createContainers: true,
             pagePath: '',
             pageExt: '.html',
             startScreen: null
@@ -92,9 +93,16 @@ MOBIFLEX = (function() {
     } // changePage
     
     function createPage(pageId, content) {
-        var container = $('.mf-pager')[0];
+        var container = $('.mf-pager')[0],
+            pageContent = content;
+            
+        // if we are creating containers for the loaded content, 
+        // then wrap the page in div
+        if (options.createContainers) {
+            pageContent = '<div id="' + pageId + '">' + content + '</div>';
+        } // if
 
-        $(container ? container : document.body).append(content);
+        $(container ? container : document.body).append(pageContent);
         console.debug('content = ' + content);
         $(module).trigger('pageCreate', pageId);
         return $('#' + pageId)[0];
