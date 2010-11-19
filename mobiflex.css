@@ -75,7 +75,12 @@ header.mf > * {
     margin: 8px 4px;
 }
 
-header.mf h1 {
+/* 
+provide the option of using a h1 tag in the header or 
+simply a strong tag.  This provides options on how to layout
+and include HTML pages.
+*/
+header.mf h1, header.mf strong {
     color: hsla(0, 0%, 100%, 0.9);
     -webkit-box-flex: 1;
 }
