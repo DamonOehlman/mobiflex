@@ -1,6 +1,6 @@
 ---
 layout: container
-title:  Mobiflex
+title:  Mobiflex - CSS3 Flexbox UI
 ---
 
 # MobiFlex - CSS3 Flexbox UI
