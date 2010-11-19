@@ -44,9 +44,9 @@ p {
 /* menu images */
 
 a[href='#!/main'] img {
-    -webkit-mask-image: url(../images/53-house.png);
+    -webkit-mask-image: url(../images/house.png);
 }
 
 a[href='#!/docs'] img {
-    -webkit-mask-image: url(../images/96-book.png);
+    -webkit-mask-image: url(../images/book.png);
 }
