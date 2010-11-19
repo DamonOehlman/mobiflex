@@ -10,10 +10,13 @@ MOBIFLEX = (function() {
         hashChangeEvent = 'onhashchange' in window,
         scrollers = {},
         pageStack = [],
+        loadAttempted = {},
         options = {
+            autoInit: true,
             ajaxLoad: true,
             pagePath: '',
-            pageExt: '.html'
+            pageExt: '.html',
+            startScreen: null
         };
         
     /* internal types */
@@ -22,7 +25,11 @@ MOBIFLEX = (function() {
     
     function changePage(page) {
         if (! page) {
-            return;
+            page = $('.mf-pager').children()[0];
+            
+            if (! page) {
+                return;
+            }
         } // if
         
         // initialise variables
@@ -88,6 +95,7 @@ MOBIFLEX = (function() {
         var container = $('.mf-pager')[0];
 
         $(container ? container : document.body).append(content);
+        console.debug('content = ' + content);
         $(module).trigger('pageCreate', pageId);
         return $('#' + pageId)[0];
     } // createPage
@@ -109,12 +117,20 @@ MOBIFLEX = (function() {
         }
         // otherwise, attempt to load the page into the document and then fire the callback
         else if (callback) {
-            if (options.ajaxLoad) {
-                $.get(
-                    options.pagePath + pageId + options.pageExt, 
-                    function(content, status, rawRequest) {
-                        callback(status === 'success' ? createPage(pageId, content) : null);
-                    });
+            if (options.ajaxLoad && $.ajax && (! loadAttempted[pageId])) {
+                // flag that we have attempted to load the page previously
+                loadAttempted[pageId] = true;
+                
+                // attempt to load the page
+                $.ajax({
+                    url: options.pagePath + pageId + options.pageExt, 
+                    success: function(content, status, rawRequest) {
+                        callback(createPage(pageId, content));
+                    },
+                    error: function(rawRequest, status, error) {
+                        callback(null);
+                    }
+                });
             }
             else {
                 callback(null);
@@ -132,49 +148,6 @@ MOBIFLEX = (function() {
     function getPager(page) {
         return page ? page.parentNode : null;
     } // getParent
-    
-    function init() {
-        // attach to the hash change event
-        if (hashChangeEvent) {
-            window.onhashchange = handleHashChange;
-        } // if
-        
-        // TODO: set the screen height if we are on an iPhone and know 
-        // we are in a browser window
-        
-        // update the menu to contain the items laid out correctly...
-        $('.mf-menu a').each(function() {
-            $(this).html('<img src="data:image/png;base64,' + EMPTY_IMAGE + '"/><strong>' + this.innerText + '</strong>');
-        });
-        
-        // preview click events
-        $(document.body).click(handleDocumentClick);
-        
-        // handle click events for menu anchors
-        $('.mf-menu a').click(handleMenuItemClick);
-        $('header.mf a.back').click(function() {
-            globalStack = pageStack;
-            if (pageStack.length > 1) {
-                debug('going back to page: ' + pageStack[pageStack.length - 2]);
-                switchTo(pageStack[pageStack.length - 2]);
-            } // if
-        });
-        
-        // initialise the pager to the use the appropriate first page
-        $('.mf-pager').each(function() {
-            var activePage = $(this).find('.current').get(0);
-            
-            if (location.hash) {
-                switchTo(location.hash, true);
-            }
-            else {
-                switchTo(activePage ? activePage.id : $(this).children().first().attr('id'), true);
-            }
-        });
-        
-        // refresh the control states
-        refreshControlStates();
-    } // init
     
     function refreshControlStates() {
         var pageUrl = unhash(currentPage.replace(/^#?(.*)?\-.*$/, '$1')),
@@ -264,6 +237,54 @@ MOBIFLEX = (function() {
         return pageStack;
     } // getStack
     
+    function init() {
+        // attach to the hash change event
+        if (hashChangeEvent) {
+            window.onhashchange = handleHashChange;
+        } // if
+        
+        // TODO: set the screen height if we are on an iPhone and know 
+        // we are in a browser window
+        
+        // update the menu to contain the items laid out correctly...
+        $('.mf-menu a').each(function() {
+            $(this).html('<img src="data:image/png;base64,' + EMPTY_IMAGE + '"/><strong>' + this.innerText + '</strong>');
+        });
+        
+        // preview click events
+        $(document.body).click(handleDocumentClick);
+        
+        // handle click events for menu anchors
+        $('.mf-menu a').click(handleMenuItemClick);
+        $('header.mf a.back').click(function() {
+            globalStack = pageStack;
+            if (pageStack.length > 1) {
+                debug('going back to page: ' + pageStack[pageStack.length - 2]);
+                switchTo(pageStack[pageStack.length - 2]);
+            } // if
+        });
+        
+        // initialise the pager to the use the appropriate first page
+        $('.mf-pager').each(function() {
+            var activePage = $(this).find('.current').get(0);
+            
+            if (options.startScreen) {
+                switchTo(options.startScreen, true);
+            }
+            else if (location.hash) {
+                switchTo(location.hash, true);
+            }
+            else {
+                switchTo(activePage ? activePage.id : $(this).children().first().attr('id'), true);
+            }
+        });
+        
+        $('.mf-menu').css('height', 'auto');
+        
+        // refresh the control states
+        refreshControlStates();
+    } // init
+    
     function popLastPage() {
         
     } // popLastPage
@@ -278,7 +299,12 @@ MOBIFLEX = (function() {
         } // if
     } // refreshPage
     
-    function showPage(pageId, resetStack) {
+    function showPage(pageId, args) {
+        var opts = $.extend({
+            resetStack: false,
+            transition: null
+        }, args);
+        
         // standardize the page id
         pageId = '#' + unhash(pageId);
         
@@ -287,13 +313,14 @@ MOBIFLEX = (function() {
         
         // if found, update the location hash
         if (targetPage) {
-            switchTo(pageId, resetStack);
+            switchTo(pageId, opts.resetStack);
         } // if
     } // showPage
     
     /* define the module */
     
     var module = {
+        init: init,
         opt: changeOptions,
         refresh: refreshPage,
         show: showPage,
@@ -303,7 +330,11 @@ MOBIFLEX = (function() {
     
     /* initialization */
     
-    $(document).ready(init);
+    $(document).ready(function() {
+        if (options.autoInit) {
+            init();
+        } // if
+    });
     
     return module;
 })();

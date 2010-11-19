@@ -55,3 +55,11 @@ The page element (children of an mf-pager) events are:
 - [Using Mobiflex](http://sidelab.github.com/mobiflex/using.html)
 - [Mobiflex Layouts](http://sidelab.github.com/mobiflex/layouts.html)
 
+## Current Limitations
+
+- Display of navigation menu image masks requires that image masks to be 
+  the same size as the image size (which by default is 28px).
+
+- Ajax page loading only supported with jQuery and not Zepto as we need to be 
+  able to detect a failure condition, and without the **ajax()** method we
+  unable to do this.
