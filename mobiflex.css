@@ -13,59 +13,6 @@ body {
     box-orient: vertical;
 }
 
-/* some additional global styles */
-
-/* list styling */
-
-ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
-
-ul li {
-    margin: 0;
-    padding: 0;
-}
-
-/* input control styling (courtesy of jQTouch) */
-
-ul li input[type="text"],
-ul li input[type="password"],
-ul li input[type="tel"],
-ul li input[type="number"],
-ul li input[type="search"],
-ul li input[type="email"],
-ul li input[type="url"],
-ul li select, 
-ul li textarea {
-    color: #CCCCCC;
-    background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
-    border: 0;
-    font: normal 17px "Helvetica Neue", Helvetica;
-    padding: 0;
-    display: inline-block;
-    margin-left: 0px;
-    width: 100%;
-    -webkit-appearance: textarea;
-    -moz-appearance: textarea;
-}
-
-/* general link styling (again kudos to jQTouch) */
-
-ul li a {
-    color: #fff;
-    padding: 12px 10px;
-    text-decoration: none;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    display: block;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -moz-tap-highlight-color: rgba(0,0,0,0);
-    text-shadow: rgba(0,0,0,.2) 0 1px 1px;
-}
-
 /* header styles */
 
 header.mf {
