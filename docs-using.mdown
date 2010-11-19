@@ -5,4 +5,4 @@ title:  Using Mobiflex
 
 # Using Mobiflex
 
-Using mobiflex is quite simple and 
+Using mobiflex is quite simple and

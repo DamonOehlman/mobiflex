@@ -1,0 +1,36 @@
+---
+layout: default
+title:  Mobiflex Design Goals
+---
+
+# Mobiflex Design Goals
+
+Mobiflex has been designed primarily for mobile devices, with an emphasis on *robustness* over *wow factor*.  
+
+## 1: Layout Consistency
+
+While impressive transitions and nice to have, achieving a consistent UI across even across just [Mobile Webkit](http://trac.webkit.org/wiki/Mobile) powered devices is challenging.  The behaviour of `fixed` and `absolute` position elements in a land of varying screen sizes and pixel densities can be a nightmare.  
+
+For this reason, Mobiflex has been designed around the new [CSS3 Flexbox](http://dev.w3.org/csswg/css3-flexbox/) which offers a way to structure user interfaces intelligently regardless of the screen size.
+
+Relative position is used in layouts as much as possible, and `absolute` and `fixed` positioning is only used when no other alternative exists.
+
+## 2: Assume Customization
+
+While the current mobile frameworks go to great lengths to provide a complete UI, as a developer or designer you may find yourself with a client that wants something *a little different*.  
+
+With an already rich UI with many existing CSS rules, customization can be difficult. For this reason, Mobiflex attempts to be minimal.
+
+## 3: Play Nice with Others
+
+There are some really useful JS and CSS libraries already out there.  Mobiflex would like to play with as many of those as possible.  Currently, Mobiflex utilizes and plays nice with:
+
+- [iScroll](http://cubiq.org/iscroll) - Javascript library that provides scrolling support in the same way that `overflow: scroll` does for desktop browsers.  Elements marked with the `mf-scroll` class in mobiflex will automatically have an `iScroll` object created for them.
+
+## 4: Be Searchable
+
+Mobiflex makes use of [jQuery's ajax](http://api.jquery.com/jQuery.ajax/) function to load pages on demand by default. When loading these pages it loads them with a [Google AJAX Crawlable](http://code.google.com/web/ajaxcrawling/docs/getting-started.html) `#!` for the urls.  While Mobiflex as a tool was built primarily for building mobile web applications, this means that constructing sites using it is also possible.
+
+## 5: Support Standard Navigation
+
+Mobiflex supports navigation using the back and forward browser buttons.

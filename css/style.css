@@ -1,5 +1,6 @@
 body {
     font: normal 1em Arial;
+    line-height: 1.5em;
 }
 
 #container {
@@ -12,8 +13,7 @@ body {
 h1, h2 {
     color: hsla(0, 0%, 90%, 0.8);
     margin: 2px 0;
-    font-size: 1.4em;
-    letter-spacing: 1px;
+    font-size: 1.2em;
     background: hsla(0, 0%, 30%, 0.2);
     /*
     border: 1px hsla(0, 0%, 80%, 0.2) solid;
@@ -25,25 +25,44 @@ h1, h2 {
 }
 
 h2 {
-    font-size: 1.3em;
+    font-size: 1.15em;
 }
 
 p {
-    padding: 0 10px 0 0;
+    padding: 0 10px 0 2px;
+    margin: 8px 0;
     text-align: justify;
-    line-height: 1.5em;
+}
+
+a {
+    color: white;
+    background: hsla(0, 0%, 20%, 0.3);
+    -webkit-border-radius: 4px;
+    padding: 4px;
+    text-decoration: none;
+}
+
+ul {
+    margin: 10px 0 5px;
+    padding: 0 10px 0 20px;
+    text-align: justify;
+}
+
+ul li {
+    margin: 0;
+    padding: 0;
 }
 
 /* mobiscroll customizations */
 
 .mf-scroll {
-    padding: 10px 0;
+    padding: 10px 0 20px;
     min-height: 100%;
 }
 
 /* menu images */
 
-a[href='#!/main'] img {
+a[href='#!/about'] img {
     -webkit-mask-image: url(../images/house.png);
 }
 

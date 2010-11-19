@@ -3,6 +3,10 @@ layout: container
 title:  Mobiflex
 ---
 
-# About Mobiflex
+# MobiFlex - CSS3 Flexbox UI
 
-Right at this moment, we have a lot of mobile UI frameworks that are hitting the mobile scene and while a lot of them are very good, they do carry a bit of extra weight in a world where 'being light' is very important.  MobiFlex is a response to that and delivers just the core elements of what is required to build a cross-device mobile application.
+We have a lot of mobile UI frameworks that are hitting the mobile scene and they are very good. But most of them carry a bit of extra weight in a world where 'being light' is very important.  MobiFlex is a response to that and delivers just the core elements of what is required to build a cross-device mobile application that will work across Webkit powered devices by making heavy use of the [CSS3 Flexible Box Layout](http://dev.w3.org/csswg/css3-flexbox/)
+
+Read more about:
+
+- [Mobiflex Design Goals](#!/about-designgoals)
