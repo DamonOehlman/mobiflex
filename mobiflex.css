@@ -87,7 +87,6 @@ header.mf a.back {
 
 .mf-menu {
     display: -webkit-box; display: -moz-box; display: box;
-    height: 0;
     background: #000;
     
     -webkit-user-select: none;
@@ -104,7 +103,7 @@ header.mf a.back {
     display: -webkit-box; display: -moz-box; display: box;
     font: bold 0.6em "Helvetica Neue", Helvetica;
     margin: 2px 1px 1px;
-    padding: 0 0 2px 0;
+    padding: 2px 0;
     min-width: 56px;
     -webkit-font-smoothing: antialiased;
 
@@ -119,19 +118,22 @@ header.mf a.back {
     text-decoration: none;
 }
 
-.mf-menu a > * {
+.mf-menu a > strong {
     display: block;
     text-align: center;
     -webkit-user-select: none;
     -moz-user-select: none;
 }
 
-.mf-menu a > img {
+.mf-menu a > strong::before {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#333));
     background: -moz-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#333));
 
+    content: ' ';
+    display: block;
     border: 0px;
     width: 28px;
+    height: 28px;
     margin: 2px auto;
     
     -webkit-mask: 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat;
@@ -147,7 +149,7 @@ header.mf a.back {
     -moz-border-radius: 4px;
 }
 
-.mf-menu a.active > img {
+.mf-menu a.active > strong::before {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#666));;
     background: -moz-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#666));;
 }

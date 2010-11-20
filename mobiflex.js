@@ -254,11 +254,6 @@ MOBIFLEX = (function() {
         // TODO: set the screen height if we are on an iPhone and know 
         // we are in a browser window
         
-        // update the menu to contain the items laid out correctly...
-        $('.mf-menu a').each(function() {
-            $(this).html('<img src="data:image/png;base64,' + EMPTY_IMAGE + '"/><strong>' + this.innerText + '</strong>');
-        });
-        
         // preview click events
         $(document.body).click(handleDocumentClick);
         

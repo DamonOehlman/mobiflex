@@ -22,7 +22,7 @@ header.mf h1, header.mf strong {
     -webkit-user-select: none;
 }
 
-.mf-menu a > img {
+.mf-menu a > span {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#333));
 }
 
@@ -30,7 +30,7 @@ header.mf h1, header.mf strong {
     background: hsla(0, 0%, 60%, 0.3);
 }
 
-.mf-menu a.active > img {
+.mf-menu a.active > strong::before {
     /* using @jordandobson's iOS tab highlight: http://jordandobson.com/webkit_tab_bar_gradients/ */
     background: -webkit-gradient(
               linear,
