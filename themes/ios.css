@@ -16,12 +16,6 @@ header.mf h1, header.mf strong {
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #2E2E2E), color-stop(0.5, #151515), color-stop(0.5, #000000), color-stop(1.0, #000000));
 }
 
-.mf-menu a > * {
-    display: block;
-    text-align: center;
-    -webkit-user-select: none;
-}
-
 .mf-menu a > span {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#333));
 }

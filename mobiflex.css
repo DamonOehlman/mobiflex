@@ -136,11 +136,9 @@ header.mf a.back {
     height: 28px;
     margin: 2px auto;
 
-    /*
     -webkit-mask: 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat;
     -moz-mask: 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat;
     mask: 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat;
-    */
 }
 
 .mf-menu a.active {
