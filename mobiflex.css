@@ -197,7 +197,7 @@ a.mf-border-dark {
 
 /* fx */
 
-*[fx~='glass'] {
+.mfx-glass {
     -webkit-background-clip: padding;
     background-image: -webkit-gradient(linear, left top, left bottom, 
         from(hsla(0, 80%, 100%, 0.6)),
