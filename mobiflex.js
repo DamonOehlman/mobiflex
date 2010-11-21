@@ -18,7 +18,7 @@ MOBIFLEX = (function() {
             pagePath: '',
             pageExt: '.html',
             startScreen: null,
-            transitions: true
+            transition: 'slide'
         },
         
         // capability checks
@@ -28,12 +28,28 @@ MOBIFLEX = (function() {
     
     /* internal functions */
     
-    function activatePage(pager, hashedPageId) {
+    function activatePage(pager, hashedPageId, transition, reverse) {
+        var activating = pager.find(hashedPageId),
+            animate = capsAnimationEvents && transition && activating[0];
+        
         // refresh the page
         refreshPage(hashedPageId);
 
+        if (animate) {
+            activating
+                .bind('webkitAnimationEnd', function(evt) {
+                    debug('animation end');
+                    activating
+                        .removeClass('animating')
+                        .css('-webkit-animation-name', null)
+                        .unbind('webkitAnimationEnd');
+                })
+                .addClass('animating')
+                .css('-webkit-animation-name', transition + (reverse ? 'Reverse' : '') + 'In');
+        } // if
+
         // activate the new page
-        pager.find(currentPage)
+        activating
             .addClass('current')
             .trigger('pageActivate', hashedPageId);
 
@@ -44,27 +60,30 @@ MOBIFLEX = (function() {
         refreshControlStates();        
     } // activatePage
     
-    function deactivateCurrent(pager, hashedPageId, callback) {
+    function deactivateCurrent(pager, hashedPageId, callback, transition, reverse) {
         var deactivating = pager.find('.current'),
-            animate = capsAnimationEvents && options.transitions && deactivating[0];
+            animate = capsAnimationEvents && transition && deactivating[0];
         
         // blur any focused controls, which should hide the on-screen keyboard...
         $(':focus').blur();
+        
+        debug('deactivating current page, animate = ' + animate + ', transition = ' + transition);
 
         if (animate) {
             deactivating
                 .bind('webkitAnimationEnd', function(evt) {
                     debug('animation end');
                     deactivating
-                        .removeClass('mft-slideleft')
-                        .removeClass('animating');
+                        .removeClass('animating-out')
+                        .css('-webkit-animation-name', null)
+                        .unbind('webkitAnimationEnd');
                     
                     if (callback) {
                         callback();
                     } // if
                 })
-                .addClass('animating')
-                .addClass('mft-slideleft');
+                .addClass('animating-out')
+                .css('-webkit-animation-name', transition + (reverse ? 'Reverse' : '') + 'Out');
         } // if
         
         // deactivate the current page (if one currently exists)
@@ -77,7 +96,7 @@ MOBIFLEX = (function() {
         } // if..else
     } // deactivateCurrent
     
-    function changePage(page) {
+    function changePage(page, transition, reverse) {
         if (! page) {
             page = $('.mf-pager').children()[0];
             
@@ -123,8 +142,8 @@ MOBIFLEX = (function() {
             
             // deactivate the current page, and then activate the new
             deactivateCurrent(pager, currentPage, function() {
-                activatePage(pager, currentPage);
-            });
+                activatePage(pager, currentPage, transition, reverse);
+            }, transition, reverse);
         } // if        
     } // changePage
     
@@ -219,7 +238,7 @@ MOBIFLEX = (function() {
         } // if..else
     } // refreshControlStates
     
-    function switchTo(pageId, resetStack) {
+    function switchTo(pageId, resetStack, transition, reverse) {
         // unhash the page id
         pageId = unhash(pageId);
         
@@ -229,7 +248,10 @@ MOBIFLEX = (function() {
         } // if
 
         // get the requested page
-        getPage(pageId, changePage);
+        getPage(pageId, function(page) {
+            debug('switching to page: ' + pageId + ', with transition: ' + transition);
+            changePage(page, transition, reverse);
+        });
     } // switchTo
     
     function unhash(input) {
@@ -258,7 +280,7 @@ MOBIFLEX = (function() {
         
         if (newPage && (newPage !== unhash(currentPage))) {
             debug('changing page in response to hash change');
-            switchTo(newPage, true);
+            switchTo(newPage, true, options.transition);
         } // if
     } // handleHashChange
     
@@ -299,7 +321,7 @@ MOBIFLEX = (function() {
             globalStack = pageStack;
             if (pageStack.length > 1) {
                 debug('going back to page: ' + pageStack[pageStack.length - 2]);
-                switchTo(pageStack[pageStack.length - 2]);
+                switchTo(pageStack[pageStack.length - 2], false, options.transition, true);
             } // if
         });
         
@@ -339,7 +361,7 @@ MOBIFLEX = (function() {
     function showPage(pageId, args) {
         var opts = $.extend({
             resetStack: false,
-            transition: null
+            transition: options.transition
         }, args);
         
         // standardize the page id
@@ -350,7 +372,7 @@ MOBIFLEX = (function() {
         
         // if found, update the location hash
         if (targetPage) {
-            switchTo(pageId, opts.resetStack);
+            switchTo(pageId, opts.resetStack, opts.transition);
         } // if
     } // showPage
     
