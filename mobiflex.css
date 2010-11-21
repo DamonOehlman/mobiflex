@@ -155,6 +155,18 @@ header.mf a.back {
     background: -moz-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#666));;
 }
 
+/* bars */
+
+.mf-bar {
+    display: -webkit-box;
+}
+
+.mf-bar > * {
+    -webkit-box-flex: 1;
+    display: block;
+    margin: 0 2px 2px 0;
+}
+
 /* buttons */
 
 .mf-button {
@@ -163,37 +175,10 @@ header.mf a.back {
     text-decoration: none;
 }
 
-a.mf-button[disabled] {
+.mf-button[disabled] {
     opacity: 0.7;
 }
 
-a.mf-border, a.mf-border-dark {
-    border: 12px;
- 
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-}
-
-a.mf-border {
-    color: hsla(0, 0%, 10%, 1);
-    
-    -webkit-border-image: url(img/button.png) 12 12 12 12;
-    -moz-border-image: url(img/button.png) 12 12 12 12;
-    border-image: url(img/button.png) 12 12 12 12;
-
-    -webkit-box-shadow: 0 0 2px hsla(0, 0%, 10%, 0.5);
-    -moz-box-shadow: 0 0 2px hsla(0, 0%, 10%, 0.5);
-    box-shadow: 0 0 2px hsla(0, 0%, 10%, 0.5);
-}
-
-a.mf-border-dark {
-    color: #FFF;
-    background: hsla(0, 0%, 30%, 0.7);
-
-    -webkit-border-image: url(img/button-dark.png) 12 12 12 12;
-    -moz-border-image: url(img/button-dark.png) 12 12 12 12;
-    border-image: url(img/button-dark.png) 12 12 12 12;
-}
 
 /* fx */
 
