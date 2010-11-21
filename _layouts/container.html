@@ -20,16 +20,21 @@
   </style>
 </head>
 <body>
-    <div id="container" class="mf-pager">
+	<header class="mf mfx-gradient-simple">
+		<strong>Mobiflex CSS Flexbox UI</strong>
+	</header>
+	
+    <div id="container" class="mf-pager mfx-gradient-simple reverse">
 	<div id="about" class="mf-scroll">
 	{{ content }}
 	</div>
     </div>
     
-	<footer id="navmenu" class="mf-menu">
-		<a href='#!/about'>About</a>
-		<a href='#!/docs'>Docs</a>
-	</footer>
+   <footer id="navmenu" class="mf-menu">
+		<a href='#!/about'><strong>About</strong></a>
+		<a href='#!/demos'><strong>Demos</strong></a>
+		<a href='#!/docs'><strong>Docs</strong></a>
+   </footer>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
   <script src="http://github.com/sidelab/mobiflex/raw/master/mobiflex.js?v=1"></script>

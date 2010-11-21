@@ -8,16 +8,20 @@ body {
     line-height: 1.5em;
     max-width: 500px;
     margin: 0 auto;
+    border: 1px hsla(0, 0%, 0%, 0.5) solid;
+    border-top: 0;
+    border-bottom: 0;
 }
 
 #container {
     padding: 0 10px 20px;
-    background: -webkit-gradient(linear, left top, left bottom, from(#93a7ac), color-stop(0.7, #dbe2e3));
-    border: 1px hsla(0, 0%, 0%, 0.5) solid;
-    border-top: 0;
-    border-bottom: 0;
+    background-color: #93a7ac; 
     color: #333;
     border-top: 1px solid #8B8B8B;
+}
+
+header {
+    background-color: orange;
 }
 
 h1, h2 {
@@ -64,12 +68,23 @@ ul li {
     min-height: 100%;
 }
 
+/* mobiscroll additions */
+
+
+
 /* menu images */
 
-a[href='#!/about'] img {
+a[href="#!/about"] > strong::before {
+    background-image: url(../images/house.png);
     -webkit-mask-image: url(../images/house.png);
 }
 
-a[href='#!/docs'] img {
+a[href="#!/demos"] > strong::before {
+    background-image: url(../images/picture-frame.png);
+    -webkit-mask-image: url(../images/picture-frame.png);
+}
+
+a[href="#!/docs"] > strong::before {
+    background-image: url(../images/book.png);
     -webkit-mask-image: url(../images/book.png);
 }

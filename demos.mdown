@@ -1,0 +1,10 @@
+---
+layout: default
+title:  Mobiflex Demos
+---
+
+# Mobiflex Demos
+
+Here are some simple demos that show the kind of CSS elements that are included in Mobiflex.
+
+- [Button Demos](#!/demos-button)
