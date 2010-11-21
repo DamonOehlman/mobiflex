@@ -335,13 +335,13 @@ MOBIFLEX = (function() {
             var activePage = $(this).find('.current').get(0);
             
             if (options.startScreen) {
-                switchTo(options.startScreen, true);
+                switchTo(options.startScreen, true, null);
             }
             else if (location.hash) {
-                switchTo(location.hash, true);
+                switchTo(location.hash, true, null);
             }
             else {
-                switchTo(activePage ? activePage.id : $(this).children().first().attr('id'), true);
+                switchTo(activePage ? activePage.id : $(this).children().first().attr('id'), true, null);
             }
         });
         
