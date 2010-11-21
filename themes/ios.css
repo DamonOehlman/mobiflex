@@ -1,9 +1,5 @@
 /* header styles */
 
-header.mf {
-    background: -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#999));
-}
-
 header.mf h1, header.mf strong {
     font: bold 18px "Helvetica Neue", Helvetica;
     text-shadow: hsla(0, 0%, 30%, 0.2) 0 1px 1px;

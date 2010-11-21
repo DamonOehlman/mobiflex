@@ -16,7 +16,7 @@ body {
 /* header styles */
 
 header.mf {
-    background: #333;
+    background-color: #999;
     display: -webkit-box; display: -moz-box; display: box;
 }
 
