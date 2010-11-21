@@ -73,10 +73,45 @@ header.mf a.back {
 .mf-pager > * {
     display: none;
     width: 100%;
+    -webkit-animation-duration: 350ms;
+    -webkit-animation-timing-function: ease-in-out;    
 }
 
 .mf-pager > .current {
     display: block;
+}
+
+/* pager transitions */
+
+.mf-pager > .animating {
+    display: block;
+    height: 0px;
+}
+
+.mf-pager > .mft-slideleft-in {
+    -webkit-animation-name: slideLeftIn;
+}
+
+.mf-pager > .mft-slideleft {
+    -webkit-animation-name: slideLeftOut;
+}
+
+@-webkit-keyframes slideLeftIn {
+    0% {
+        -webkit-transform: translateX(100%);
+    } 
+    100% {
+        -webkit-transform: translateX(0);
+    }
+}
+
+@-webkit-keyframes slideLeftOut {
+    0% {
+        -webkit-transform: translateX(0px);
+    } 
+    100% {
+        -webkit-transform: translateX(-100%);
+    }
 }
 
 /* scroller styles */

@@ -17,12 +17,63 @@ MOBIFLEX = (function() {
             createContainers: true,
             pagePath: '',
             pageExt: '.html',
-            startScreen: null
-        };
+            startScreen: null,
+            transitions: true
+        },
+        
+        // capability checks
+        capsAnimationEvents = (typeof WebKitAnimationEvent !== 'undefined');
         
     /* internal types */
     
     /* internal functions */
+    
+    function activatePage(pager, hashedPageId) {
+        // refresh the page
+        refreshPage(hashedPageId);
+
+        // activate the new page
+        pager.find(currentPage)
+            .addClass('current')
+            .trigger('pageActivate', hashedPageId);
+
+        // update the location hash
+        location.hash = '!/' + hashedPageId;
+        
+        // update the current control stages
+        refreshControlStates();        
+    } // activatePage
+    
+    function deactivateCurrent(pager, hashedPageId, callback) {
+        var deactivating = pager.find('.current'),
+            animate = capsAnimationEvents && options.transitions && deactivating[0];
+        
+        // blur any focused controls, which should hide the on-screen keyboard...
+        $(':focus').blur();
+
+        if (animate) {
+            deactivating
+                .bind('webkitAnimationEnd', function(evt) {
+                    debug('animation end');
+                    deactivating.removeClass('animating');
+                    
+                    if (callback) {
+                        callback();
+                    } // if
+                })
+                .addClass('animating')
+                .addClass('mft-slideleft');
+        } // if
+        
+        // deactivate the current page (if one currently exists)
+        deactivating
+            .removeClass('current')
+            .trigger('pageDeactivate', hashedPageId);
+            
+        if ((! animate) && callback) {
+            callback();
+        } // if..else
+    } // deactivateCurrent
     
     function changePage(page) {
         if (! page) {
@@ -67,28 +118,11 @@ MOBIFLEX = (function() {
             else {
                 pageStack.push(currentPage);
             } // if..else
-
-            // blur any focused controls, which should hide the on-screen keyboard...
-            $(':focus').blur();
-
-            // deactivate the current page (if one currently exists)
-            pager.find('.current')
-                .removeClass('current')
-                .trigger('pageDeactivate', pageId);
-                
-            // refresh the page
-            refreshPage(pageId);
-
-            // activate the new page
-            pager.find(currentPage)
-                .addClass('current')
-                .trigger('pageActivate', pageId);
-
-            // update the location hash
-            location.hash = '!/' + pageId;
             
-            // update the current control stages
-            refreshControlStates();
+            // deactivate the current page, and then activate the new
+            deactivateCurrent(pager, currentPage, function() {
+                activatePage(pager, currentPage);
+            });
         } // if        
     } // changePage
     
