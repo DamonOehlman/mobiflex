@@ -187,25 +187,25 @@ header.mf a.back {
 }
 
 .mfx-gradient-simple {
-    background-image: -webkit-gradient(linear, top, bottom, 
+    background-image: -webkit-gradient(linear, top bottom, 
         from(hsla(0, 0%, 100%, 0.3)),
         to(hsla(0, 0%, 0%, 0)));
 }
 
 .mfx-gradient-simple[class~='reverse'] {
-    background-image: -webkit-gradient(linear, bottom, top, 
+    background-image: -webkit-gradient(linear, bottom top, 
         from(hsla(0, 0%, 100%, 0.3)),
         to(hsla(0, 0%, 0%, 0)));
 }
 
 .mfx-gradient-strong {
-    background-image: -webkit-gradient(linear, top, bottom, 
+    background-image: -webkit-gradient(linear, top bottom, 
         from(hsla(0, 0%, 100%, 0.6)),
         to(hsla(0, 0%, 0%, 0)));
 }
 
 .mfx-gradient-strong[class~='reverse'] {
-    background-image: -webkit-gradient(linear, bottom, top, 
+    background-image: -webkit-gradient(linear, bottom top, 
         from(hsla(0, 0%, 100%, 0.6)),
         to(hsla(0, 0%, 0%, 0)));
 }
