@@ -218,6 +218,14 @@ header.mf a.back {
         to(hsla(0, 0%, 0%, 0)));
 }
 
+.mfx-glass[class~='reverse'] {
+    background-image: -webkit-gradient(linear, left top, left bottom, 
+        from(hsla(0, 80%, 100%, 0.6)),
+        color-stop(0.5, hsla(0, 50%, 100%, 0.1)),
+        color-stop(0.55, hsla(0, 0%, 0%, 0)),
+        to(hsla(0, 0%, 0%, 0)));
+}
+
 /* flags and options */
 
 .mfo-vert {
