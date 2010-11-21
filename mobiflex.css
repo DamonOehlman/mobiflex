@@ -72,6 +72,7 @@ header.mf a.back {
 
 .mf-pager > * {
     display: none;
+    width: 100%;
 }
 
 .mf-pager > .current {
@@ -155,6 +156,16 @@ header.mf a.back {
 }
 
 /* buttons */
+
+.glass {
+    -webkit-background-clip: padding;
+    background-image: -webkit-gradient(linear, left top, left bottom, 
+        from(hsla(0, 80%, 100%, 0.6)),
+        color-stop(0.5, hsla(0, 50%, 100%, 0.1)),
+        color-stop(0.55, hsla(0, 0%, 0%, 0)),
+        to(hsla(0, 0%, 0%, 0)));
+    color: hsla(0, 0%, 0%, .8);
+}
 
 a.mf-button {
     display: block;

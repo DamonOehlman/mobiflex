@@ -282,8 +282,6 @@ MOBIFLEX = (function() {
             }
         });
         
-        $('.mf-menu').css('height', 'auto');
-        
         // refresh the control states
         refreshControlStates();
     } // init
