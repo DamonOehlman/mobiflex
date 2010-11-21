@@ -182,14 +182,40 @@ header.mf a.back {
 
 /* fx */
 
-.mfx-glass {
+*[class*="mfx"] {
     -webkit-background-clip: padding;
-    background-image: -webkit-gradient(linear, left top, left bottom, 
+}
+
+.mfx-gradient-simple {
+    background-image: -webkit-gradient(linear, top, bottom, 
+        from(hsla(0, 0%, 100%, 0.3)),
+        to(hsla(0, 0%, 0%, 0)));
+}
+
+.mfx-gradient-simple[class~='reverse'] {
+    background-image: -webkit-gradient(linear, bottom, top, 
+        from(hsla(0, 0%, 100%, 0.3)),
+        to(hsla(0, 0%, 0%, 0)));
+}
+
+.mfx-gradient-strong {
+    background-image: -webkit-gradient(linear, top, bottom, 
+        from(hsla(0, 0%, 100%, 0.6)),
+        to(hsla(0, 0%, 0%, 0)));
+}
+
+.mfx-gradient-strong[class~='reverse'] {
+    background-image: -webkit-gradient(linear, bottom, top, 
+        from(hsla(0, 0%, 100%, 0.6)),
+        to(hsla(0, 0%, 0%, 0)));
+}
+
+.mfx-glass {
+    background-image: -webkit-gradient(linear, top, bottom, 
         from(hsla(0, 80%, 100%, 0.6)),
         color-stop(0.5, hsla(0, 50%, 100%, 0.1)),
         color-stop(0.55, hsla(0, 0%, 0%, 0)),
         to(hsla(0, 0%, 0%, 0)));
-    color: hsla(0, 0%, 0%, .8);
 }
 
 /* flags and options */
