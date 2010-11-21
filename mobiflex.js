@@ -105,6 +105,11 @@ MOBIFLEX = (function() {
             }
         } // if
         
+        // if the transition parameter is undefined, then use the options default
+        if (typeof transition === 'undefined') {
+            transition = options.transition;
+        } // if
+        
         // initialise variables
         var pageId = page.id, 
             pager = $(getPager(page)),
@@ -134,6 +139,7 @@ MOBIFLEX = (function() {
             // if it exists, then we need to pop pages off
             if (pageIndex >= 0) {
                 pageStack.pop();
+                reverse = true;
             } // if
             // otherwise, push the page onto the stack
             else {
@@ -249,7 +255,6 @@ MOBIFLEX = (function() {
 
         // get the requested page
         getPage(pageId, function(page) {
-            debug('switching to page: ' + pageId + ', with transition: ' + transition);
             changePage(page, transition, reverse);
         });
     } // switchTo
@@ -280,7 +285,7 @@ MOBIFLEX = (function() {
         
         if (newPage && (newPage !== unhash(currentPage))) {
             debug('changing page in response to hash change');
-            switchTo(newPage, true, options.transition);
+            switchTo(newPage, pageStack.indexOf('#' + newPage) < 0);
         } // if
     } // handleHashChange
     
@@ -321,7 +326,7 @@ MOBIFLEX = (function() {
             globalStack = pageStack;
             if (pageStack.length > 1) {
                 debug('going back to page: ' + pageStack[pageStack.length - 2]);
-                switchTo(pageStack[pageStack.length - 2], false, options.transition, true);
+                switchTo(pageStack[pageStack.length - 2]);
             } // if
         });
         
