@@ -38,7 +38,7 @@ MOBIFLEX = (function() {
             .trigger('pageActivate', hashedPageId);
 
         // update the location hash
-        location.hash = '!/' + hashedPageId;
+        location.hash = '!/' + unhash(hashedPageId);
         
         // update the current control stages
         refreshControlStates();        
@@ -55,7 +55,9 @@ MOBIFLEX = (function() {
             deactivating
                 .bind('webkitAnimationEnd', function(evt) {
                     debug('animation end');
-                    deactivating.removeClass('animating');
+                    deactivating
+                        .removeClass('mft-slideleft')
+                        .removeClass('animating');
                     
                     if (callback) {
                         callback();
