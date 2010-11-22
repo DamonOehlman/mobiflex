@@ -1,6 +1,10 @@
 /* required html defaults */
 
 html {
+    min-height: 100%;
+}
+
+html.mf-iscroll {
     height: 100%;
 }
 
