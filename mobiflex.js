@@ -224,7 +224,7 @@ MOBIFLEX = (function() {
         var iScrollAvail = options.iScroll && (typeof iScroll !== 'undefined');
         
         // flag iscroll availability in the html elements
-        $('html').addClass(iScrollAvail ? 'iscroll' : 'no-iscroll');
+        $('html').addClass(iScrollAvail ? 'mf-iscroll' : 'mf-noiscroll');
         
         // if we have no iscroll support
         if (! iScrollAvail) {
@@ -373,7 +373,7 @@ MOBIFLEX = (function() {
         iScrollInit();
         
         // flag mobiflex as ready
-        $('html').removeClass('loading');        
+        $('html').removeClass('mf-loading').addClass('mf-loaded');        
         $(document).trigger('mobiflexReady');
     } // init
     
