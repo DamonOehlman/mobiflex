@@ -227,7 +227,7 @@ MOBIFLEX = (function() {
         $('html').addClass(iScrollAvail ? 'mf-iscroll' : 'mf-noiscroll');
         
         // if we have no iscroll support
-        if (! iScrollAvail) {
+        if ($('html').hasClass('mf-noiscroll')) {
             // see if we have a bottom menu
             var bottomMenu = $('footer.mf-menu');
 
@@ -373,7 +373,11 @@ MOBIFLEX = (function() {
         iScrollInit();
         
         // flag mobiflex as ready
-        $('html').removeClass('mf-loading').addClass('mf-loaded');        
+        $('html')
+            // flag as loaded (will hide splash elements)
+            .addClass('mf-loaded')
+            // remove the loading class (will display other elements)
+            .removeClass('mf-loading');        
         $(document).trigger('mobiflexReady');
     } // init
     
