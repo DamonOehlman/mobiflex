@@ -221,7 +221,7 @@ MOBIFLEX = (function() {
     
     function iScrollInit() {
         // initialise variables
-        var iScrollAvail = opts.iScroll && (typeof iScroll !== 'undefined');
+        var iScrollAvail = options.iScroll && (typeof iScroll !== 'undefined');
         
         // flag iscroll availability in the html elements
         $('html').addClass(iScrollAvail ? 'iscroll' : 'no-iscroll');
@@ -322,7 +322,7 @@ MOBIFLEX = (function() {
     /* exports */
     
     function changeOptions(params) {
-        opts = $.extend(options, params);
+        options = $.extend(options, params);
     } // changeOptions
     
     function getStack() {
