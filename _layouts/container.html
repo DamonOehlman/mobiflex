@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="en" class="no-js mf-loading mf-noiscroll">
 <head>
   <meta charset="utf-8">
   <title>{{ page.title }}</title>
@@ -19,18 +19,19 @@
   @import "css/style.css";
   </style>
 </head>
-<body>
-	<header class="mf mfx-gradient-simple">
+<body class="mfx-gradient-simple reverse">
+	<div class="splash">Hello</div>
+	<header class="mf">
 		<strong>Mobiflex CSS Flexbox UI</strong>
 	</header>
 	
-    <div id="container" class="mf-pager mfx-gradient-simple reverse">
+    <div id="container" class="mf-pager">
 	<div id="about" class="mf-scroll">
 	{{ content }}
 	</div>
     </div>
     
-   <footer id="navmenu" class="mf-menu">
+   <footer class="mf-menu">
 		<a href='#!/about'><strong>About</strong></a>
 		<a href='#!/demos'><strong>Demos</strong></a>
 		<a href='#!/docs'><strong>Docs</strong></a>
@@ -39,6 +40,7 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
   <script src="http://github.com/sidelab/mobiflex/raw/master/mobiflex.js?v=1"></script>
   <script src="http://github.com/sidelab/mobiflex/raw/master/lib/iscroll-min.js?v=1"></script>
+  <script src="js/tweaks.js?v=1"></script>
   <script>
    var _gaq = [['_setAccount', 'UA-8447893-9'], ['_trackPageview']]; 
    (function(d, t) {
