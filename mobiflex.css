@@ -65,7 +65,7 @@ header.mf a.back {
     -webkit-box-flex: 1;
     -moz-box-flex: 1;
     box-flex: 1;
-    overflow: hidden;
+    overflow-x: hidden;
     z-index: 1;
 }
 
