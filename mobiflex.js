@@ -113,10 +113,9 @@ MOBIFLEX = (function() {
         
         // initialise variables
         var pageId = page.id, 
-            pager = $(getPager(page)),
-            scrollingSupport = typeof iScroll !== 'undefined';
+            pager = $(getPager(page));
             
-        if (scrollingSupport && $(page).hasClass('mf-scroll') && (! scrollers[pageId])) {
+        if (options.iScroll && $(page).hasClass('mf-scroll') && (! scrollers[pageId])) {
             // create the scroller
             scrollers[pageId] = new iScroll(pageId, {
                 checkDOMChanges: false
@@ -221,20 +220,33 @@ MOBIFLEX = (function() {
     
     function iScrollInit() {
         // initialise variables
-        var iScrollAvail = options.iScroll && (typeof iScroll !== 'undefined');
+        options.iScroll = 
+            options.iScroll && 
+            (typeof iScroll !== 'undefined') && 
+            (! $('html').hasClass('mf-noiscroll'));
         
         // flag iscroll availability in the html elements
-        $('html').addClass(iScrollAvail ? 'mf-iscroll' : 'mf-noiscroll');
+        $('html').addClass(options.iScroll ? 'mf-iscroll' : 'mf-noiscroll');
         
         // if we have no iscroll support
-        if ($('html').hasClass('mf-noiscroll')) {
+        if (! options.iScroll) {
             // see if we have a bottom menu
-            var bottomMenu = $('footer.mf-menu');
+            var bottomMenu = $('footer.mf-menu'),
+                header = $('header');
 
             // add a top menu instead of the button menu
+            // TODO: work out the best place to drop the menu
             if (bottomMenu[0]) {
-                $('body').children().first()
-                    .after('<div class="mf-menu">' + bottomMenu.html() + '</div>');
+                var menuHtml = '<div class="mf-menu">' + bottomMenu.html() + '</div>';
+                
+                // if we have a header, then add the menu after the header
+                if (header[0]) {
+                    header.after(menuHtml);
+                }
+                // otherwise add as the first element in the body
+                else {
+                    $('body').prepend(menuHtml);
+                } // if..else
             } // if
         } // if
     } // iScrollCheck
