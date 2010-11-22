@@ -15,6 +15,7 @@ MOBIFLEX = (function() {
             autoInit: true,
             ajaxLoad: true,
             createContainers: true,
+            iScroll: true,
             pagePath: '',
             pageExt: '.html',
             startScreen: null,
@@ -218,6 +219,26 @@ MOBIFLEX = (function() {
         return page ? page.parentNode : null;
     } // getParent
     
+    function iScrollInit() {
+        // initialise variables
+        var iScrollAvail = opts.iScroll && (typeof iScroll !== 'undefined');
+        
+        // flag iscroll availability in the html elements
+        $('html').addClass(iScrollAvail ? 'iscroll' : 'no-iscroll');
+        
+        // if we have no iscroll support
+        if (! iScrollAvail) {
+            // see if we have a bottom menu
+            var bottomMenu = $('footer.mf-menu');
+
+            // add a top menu instead of the button menu
+            if (bottomMenu[0]) {
+                $('body').children().first()
+                    .after('<div class="mf-menu">' + bottomMenu.html() + '</div>');
+            } // if
+        } // if
+    } // iScrollCheck
+    
     function refreshControlStates() {
         var pageUrl = unhash(currentPage.replace(/^#?(.*)?\-.*$/, '$1')),
             pageRegex = new RegExp('^.*#(\!\/)?' + pageUrl, 'i');
@@ -347,6 +368,13 @@ MOBIFLEX = (function() {
         
         // refresh the control states
         refreshControlStates();
+        
+        // run an iscroll availability check
+        iScrollInit();
+        
+        // flag mobiflex as ready
+        $('html').removeClass('loading');        
+        $(document).trigger('mobiflexReady');
     } // init
     
     function popLastPage() {

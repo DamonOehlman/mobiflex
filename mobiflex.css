@@ -6,6 +6,13 @@ html {
 
 body {
     margin: 0;
+}
+
+html.loading body > * {
+    display: none;
+}
+
+html.iscroll body {
     height: 100%;
     display: -webkit-box; display: -moz-box; display: box;
     -webkit-box-orient: vertical;
@@ -167,6 +174,12 @@ header.mf a.back {
 .mf-menu a.active > strong::before {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#666));;
     background: -moz-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#666));;
+}
+
+/* footer menu rules for loading and no-iscroll */
+
+html.loading footer.mf-menu, html.no-iscroll footer.mf-menu {
+    display: none;
 }
 
 /* bars */
