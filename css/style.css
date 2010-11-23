@@ -11,6 +11,23 @@ body {
     border-bottom: 0;
 }
 
+.splash {
+    padding: 20% 0;
+    height: 60%;
+    text-align: center;
+}
+
+.splash p {
+    text-align: center;
+    font-size: 2em;
+    color: hsla(0, 0%, 20%, 0.5);
+    text-shadow: hsla(0, 0%, 80%, 0.8) 0 1px 0px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0 0 20px 0;
+}
+
 #container {
     padding: 0 10px 20px;
     color: #333;
@@ -66,6 +83,10 @@ ul li {
 }
 
 /* mobiscroll additions */
+
+html.mf-loading .splash * {
+    visibility: visible;
+}
 
 /* menu images */
 
