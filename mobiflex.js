@@ -237,7 +237,8 @@ MOBIFLEX = (function() {
             // add a top menu instead of the button menu
             // TODO: work out the best place to drop the menu
             if (bottomMenu[0]) {
-                var menuHtml = '<div class="mf-menu">' + bottomMenu.html() + '</div>';
+                // NOTE: Unescaped as firefox automatically escapes
+                var menuHtml = '<div class="mf-menu">' + unescape(bottomMenu.html()) + '</div>';
                 
                 // if we have a header, then add the menu after the header
                 if (header[0]) {
