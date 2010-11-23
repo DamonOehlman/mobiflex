@@ -39,7 +39,7 @@ MOBIFLEX = (function() {
         if (animate) {
             activating
                 .bind('webkitAnimationEnd', function(evt) {
-                    debug('animation end');
+                    // debug('animation end');
                     activating
                         .removeClass('animating')
                         .css('-webkit-animation-name', null)
@@ -57,10 +57,7 @@ MOBIFLEX = (function() {
         // update the location hash
         location.hash = '!/' + unhash(hashedPageId);
         
-        // if hash changes aren't supported, then change the page manually
-        if (! hashChangeEvent) {
-            switchTo(hashedPageId);
-        } // if
+        // debug('activating page: ' + hashedPageId + ', hash change event = ' + hashChangeEvent);
         
         // update the current control stages
         refreshControlStates();        
@@ -73,12 +70,12 @@ MOBIFLEX = (function() {
         // blur any focused controls, which should hide the on-screen keyboard...
         $(':focus').blur();
         
-        debug('deactivating current page, animate = ' + animate + ', transition = ' + transition);
+        // debug('deactivating current page, animate = ' + animate + ', transition = ' + transition);
 
         if (animate) {
             deactivating
                 .bind('webkitAnimationEnd', function(evt) {
-                    debug('animation end');
+                    // debug('animation end');
                     deactivating
                         .removeClass('animating-out')
                         .css('-webkit-animation-name', null)
@@ -169,7 +166,7 @@ MOBIFLEX = (function() {
         } // if
 
         $(container ? container : document.body).append(pageContent);
-        console.debug('content = ' + content);
+        // debug('content = ' + content);
         $(module).trigger('pageCreate', pageId);
         return $('#' + pageId)[0];
     } // createPage
@@ -181,9 +178,11 @@ MOBIFLEX = (function() {
     function getPage(pageId, callback) {
         // unhash the page id
         pageId = unhash(pageId);
-
+        
         // find the page in the existing elements
-        var page = pageId ? $('#' + pageId).get(0) : null;
+        var page = pageId ? $('#' + pageId)[0] : null;
+        
+        // debug('looking for page id: ' + pageId + ', page = ' + page + ', callback = ' + callback);
         
         // if it exists, fire the callback
         if (page && callback) {
@@ -191,6 +190,8 @@ MOBIFLEX = (function() {
         }
         // otherwise, attempt to load the page into the document and then fire the callback
         else if (callback) {
+            // debug('attempting ajax load, loadattempted = ' + loadAttempted[pageId]);
+            
             if (options.ajaxLoad && $.ajax && (! loadAttempted[pageId])) {
                 // flag that we have attempted to load the page previously
                 loadAttempted[pageId] = true;
@@ -202,6 +203,7 @@ MOBIFLEX = (function() {
                         callback(createPage(pageId, content));
                     },
                     error: function(rawRequest, status, error) {
+                        debug('could not load page: ' + pageId);
                         callback(null);
                     }
                 });
@@ -263,7 +265,7 @@ MOBIFLEX = (function() {
             
         globalRegex = pageRegex;
             
-        console.debug('activating button: ' + pageUrl);
+        // debug('activating button: ' + pageUrl);
         
         // add the styling for the links that are active
         $('a.active').removeClass('active');
@@ -274,7 +276,7 @@ MOBIFLEX = (function() {
             } // if
         });
 
-        debug('page stack has ' + pageStack.length + ' items');
+        // debug('page stack has ' + pageStack.length + ' items');
         if (pageStack.length > 1) {
             $('header.mf a.back').show();
         }
@@ -300,7 +302,7 @@ MOBIFLEX = (function() {
     } // switchTo
     
     function unhash(input) {
-        return input ? input.replace(/^#?(\!\/)?(.*)/, '$2') : '';
+        return input ? input.replace(/^.*?#?(\!\/)?([^\/]*)$/, '$2') : '';
     } // unhash
     
     /* event handlers */
@@ -312,21 +314,26 @@ MOBIFLEX = (function() {
     */
     function handleDocumentClick(evt) {
         var matches = $(evt.target).closest('a'),
-            actionId = matches.length > 0 ? matches[0].href.replace(/^.*#(.*)$/, '$1') : null,
+            actionId = matches.length > 0 ? unhash(matches[0].href) : null,
             targetPage = actionId ? getPage(actionId) : null;
             
         if (targetPage) {
             $(targetPage).data('referrer', matches);
+        } // if
+        
+        // if hash changes aren't supported, then bind to click events 
+        if (! hashChangeEvent) {
+            switchTo(actionId);
         } // if
     } // handleDocumentClick
     
     function handleHashChange(evt) {
         var newPage = unhash(location.hash);
         
-        debug('captured hash change, location.hash = ' + location.hash);
+        // debug('captured hash change, location.hash = ' + location.hash);
         
         if (newPage && (newPage !== unhash(currentPage))) {
-            debug('changing page in response to hash change');
+            // debug('changing page in response to hash change');
             switchTo(newPage);
         } // if
     } // handleHashChange
@@ -367,7 +374,7 @@ MOBIFLEX = (function() {
         $('header.mf a.back').click(function() {
             globalStack = pageStack;
             if (pageStack.length > 1) {
-                debug('going back to page: ' + pageStack[pageStack.length - 2]);
+                // debug('going back to page: ' + pageStack[pageStack.length - 2]);
                 switchTo(pageStack[pageStack.length - 2]);
             } // if
         });
