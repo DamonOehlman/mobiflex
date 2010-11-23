@@ -59,7 +59,7 @@ MOBIFLEX = (function() {
         
         // if hash changes aren't supported, then change the page manually
         if (! hashChangeEvent) {
-            handleHashChange();
+            switchTo(hashedPageId);
         } // if
         
         // update the current control stages
@@ -286,6 +286,7 @@ MOBIFLEX = (function() {
     function switchTo(pageId, resetStack, transition, reverse) {
         // unhash the page id
         pageId = unhash(pageId);
+        resetStack = resetStack || pageStack.indexOf('#' + pageId) < 0;
         
         // if we need to reset the stack, then do that now
         if (resetStack) {
@@ -326,7 +327,7 @@ MOBIFLEX = (function() {
         
         if (newPage && (newPage !== unhash(currentPage))) {
             debug('changing page in response to hash change');
-            switchTo(newPage, pageStack.indexOf('#' + newPage) < 0);
+            switchTo(newPage);
         } // if
     } // handleHashChange
     
