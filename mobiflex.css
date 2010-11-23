@@ -32,12 +32,14 @@ html.mf-iscroll body {
     -webkit-box-orient: vertical;
     -moz-box-orient: vertical;
     box-orient: vertical;
+    width: 100%; /* moz needs this */
 }
 
 /* header styles */
 
 header.mf {
     display: -webkit-box; display: -moz-box; display: box;
+    width: 100%; /* moz needs this */
 }
 
 header.mf > * {
@@ -123,6 +125,7 @@ header.mf a.back {
 
 .mf-menu {
     display: -webkit-box; display: -moz-box; display: box;
+    width: 100%; /* moz needs this */
     background: #000;
     
     -webkit-user-select: none;
