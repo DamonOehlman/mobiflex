@@ -57,6 +57,11 @@ MOBIFLEX = (function() {
         // update the location hash
         location.hash = '!/' + unhash(hashedPageId);
         
+        // if hash changes aren't supported, then change the page manually
+        if (! hashChangeEvent) {
+            handleHashChange();
+        } // if
+        
         // update the current control stages
         refreshControlStates();        
     } // activatePage
