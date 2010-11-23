@@ -317,6 +317,8 @@ MOBIFLEX = (function() {
     function handleHashChange(evt) {
         var newPage = unhash(location.hash);
         
+        debug('captured hash change, location.hash = ' + location.hash);
+        
         if (newPage && (newPage !== unhash(currentPage))) {
             debug('changing page in response to hash change');
             switchTo(newPage, pageStack.indexOf('#' + newPage) < 0);
