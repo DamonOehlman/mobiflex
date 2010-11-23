@@ -106,6 +106,7 @@ header.mf a.back {
 
 .mf-pager > .animating, .mf-pager > .animating-out {
     display: block;
+    overflow: none;
     -webkit-animation-duration: 250ms;
 }
 
