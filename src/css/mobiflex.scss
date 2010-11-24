@@ -1,0 +1,92 @@
+@import "mix_flexbox";
+@import "mix_tweaks";
+
+/* required html defaults */
+
+html {
+    min-height: 100%;
+}
+
+html.mf-iscroll {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* load states */
+
+html.mf-loading * {
+    visibility: hidden;
+}
+
+html.mf-loading .splash {
+    visibility: visible;
+}
+
+html.mf-loaded .splash {
+    display: none;
+} 
+
+html.mf-iscroll body {
+    @include flexbox;
+    @include flexbox-orient(vertical);
+
+    height: 100%;
+    width: 100%; /* moz needs this */
+}
+
+@import "header";
+@import "pager";
+@import "menu";
+
+/* footer menu rules for loading and no-iscroll */
+
+html.mf-loading footer.mf-menu, html.mf-noiscroll footer.mf-menu {
+    display: none;
+}
+
+/* bars */
+
+.mf-bar {
+    @include flexbox;
+}
+
+.mf-bar > * {
+    @include flexbox-flex(1);
+    display: block;
+    margin: 0 2px 2px 0;
+}
+
+/* buttons */
+
+.mf-button {
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+.mf-button[disabled] {
+    opacity: 0.7;
+}
+
+
+@import "fx";
+
+/* flags and options */
+
+.mfo-vert {
+    @include flexbox-orient(vertical);
+}
+
+@import "animations";
+
+/* media query customizations */
+
+@media all and (orientation:landscape) { 
+}
+
+@media screen and (max-device-width: 480px) and (orientation:landscape) {
+}

@@ -1,0 +1,45 @@
+/* header styles */
+
+header.mf {
+    @include flexbox;
+    width: 100%; /* moz needs this */
+}
+
+header.mf > * {
+    display: block;
+    margin: 8px 4px;
+}
+
+/* 
+provide the option of using a h1 tag in the header or 
+simply a strong tag.  This provides options on how to layout
+and include HTML pages.
+*/
+header.mf h1, header.mf strong {
+    @include flexbox;
+    
+    color: hsla(0, 0%, 100%, 0.9);
+}
+
+header.mf a {
+    background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#333));
+    background: -moz-gradient(linear, left top, left bottom, from(#999), to(#333));
+    color: white;
+    padding: 4px 6px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+/* header buttons */
+
+header.mf a.back {
+    -webkit-mask-box-image: url(img/back-button-mask.png) 20 0 20 12;
+    -moz-mask-box-image: url(img/back-button-mask.png) 20 0 20 12;
+    mask-box-image: url(img/back-button-mask.png) 20 0 20 12;
+    padding-left: 14px;
+    margin-left: 0px;
+}

@@ -1,0 +1,60 @@
+/* action bar */
+
+.mf-menu {
+    @include flexbox;
+    @include flexbox-pack(center);
+    @include user-select(none);
+    
+    width: 100%; /* moz needs this */
+    background: #000;
+}
+
+.mf-menu a {
+    @include flexbox;
+    @include flexbox-flex(1);
+    @include flexbox-orient(vertical);
+    
+    color: #AAA;
+    font: bold 0.6em "Helvetica Neue", Helvetica;
+    margin: 2px 1px 1px;
+    padding: 2px 0;
+    min-width: 56px;
+    -webkit-font-smoothing: antialiased;
+    text-decoration: none;
+}
+
+.mf-menu a > strong {
+    display: block;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+.mf-menu a > strong::before {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#333));
+    background: -moz-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#333));
+
+    content: ' ';
+    display: block;
+    border: 0px;
+    width: 28px;
+    height: 28px;
+    margin: 2px auto;
+
+    -webkit-mask: 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat;
+    -moz-mask: 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat;
+    mask: 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat;
+}
+
+.mf-menu a.active {
+    background: hsla(0, 0%, 60%, 0.3);
+    color: #FFF;
+
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+}
+
+.mf-menu a.active > strong::before {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#666));;
+    background: -moz-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#666));;
+}

@@ -1,0 +1,33 @@
+/* multipage central element */
+
+.mf-pager {
+    @include flexbox-flex(1);
+
+    overflow-x: hidden;
+    z-index: 1;
+}
+
+.mf-pager > * {
+    display: none;
+    width: 100%;
+}
+
+.mf-pager > .current {
+    display: block;
+}
+
+/* pager transitions */
+
+.mf-pager > .animating, .mf-pager > .animating-out {
+    display: block;
+    overflow: none;
+    -webkit-animation-duration: 250ms;
+}
+
+.mf-pager > .animating {
+    -webkit-animation-timing-function: ease-out;    
+}
+
+.mf-pager > .animating-out {
+    -webkit-animation-timing-function: ease-in;    
+}

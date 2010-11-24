@@ -1,52 +1,48 @@
 /* required html defaults */
-
 html {
-    min-height: 100%;
-}
+  min-height: 100%; }
 
 html.mf-iscroll {
-    height: 100%;
-}
+  height: 100%; }
 
 body {
-    margin: 0;
-    overflow-x: hidden;
-}
+  margin: 0;
+  overflow-x: hidden; }
 
 /* load states */
-
 html.mf-loading * {
-    visibility: hidden;
-}
+  visibility: hidden; }
 
 html.mf-loading .splash {
-    visibility: visible;
-}
+  visibility: visible; }
 
 html.mf-loaded .splash {
-    display: none;
-} 
+  display: none; }
 
 html.mf-iscroll body {
-    height: 100%;
-    display: -webkit-box; display: -moz-box; display: box;
-    -webkit-box-orient: vertical;
-    -moz-box-orient: vertical;
-    box-orient: vertical;
-    width: 100%; /* moz needs this */
-}
+  display: block;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  box-orient: vertical;
+  height: 100%;
+  width: 100%;
+  /* moz needs this */ }
 
 /* header styles */
-
 header.mf {
-    display: -webkit-box; display: -moz-box; display: box;
-    width: 100%; /* moz needs this */
-}
+  display: block;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  width: 100%;
+  /* moz needs this */ }
 
 header.mf > * {
-    display: block;
-    margin: 8px 4px;
-}
+  display: block;
+  margin: 8px 4px; }
 
 /* 
 provide the option of using a h1 tag in the header or 
@@ -54,274 +50,207 @@ simply a strong tag.  This provides options on how to layout
 and include HTML pages.
 */
 header.mf h1, header.mf strong {
-    color: hsla(0, 0%, 100%, 0.9);
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    box-flex: 1;
-}
+  display: block;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  color: rgba(255, 255, 255, 0.9); }
 
 header.mf a {
-    background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#333));
-    background: -moz-gradient(linear, left top, left bottom, from(#999), to(#333));
-    color: white;
-    padding: 4px 6px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 0.8em;
-    font-weight: bold;
-}
+  background: -webkit-gradient(linear, left top, left bottom, from(#999999), to(#333333));
+  background: -moz-gradient(linear, left top, left bottom, from(#999999), to(#333333));
+  color: white;
+  padding: 4px 6px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.8em;
+  font-weight: bold; }
 
 /* header buttons */
-
 header.mf a.back {
-    -webkit-mask-box-image: url(img/back-button-mask.png) 20 0 20 12;
-    -moz-mask-box-image: url(img/back-button-mask.png) 20 0 20 12;
-    mask-box-image: url(img/back-button-mask.png) 20 0 20 12;
-    padding-left: 14px;
-    margin-left: 0px;
-}
+  -webkit-mask-box-image: url(img/back-button-mask.png) 20 0 20 12;
+  -moz-mask-box-image: url(img/back-button-mask.png) 20 0 20 12;
+  mask-box-image: url(img/back-button-mask.png) 20 0 20 12;
+  padding-left: 14px;
+  margin-left: 0px; }
 
 /* multipage central element */
-
 .mf-pager {
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    box-flex: 1;
-    overflow-x: hidden;
-    z-index: 1;
-}
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  overflow-x: hidden;
+  z-index: 1; }
 
 .mf-pager > * {
-    display: none;
-    width: 100%;
-}
+  display: none;
+  width: 100%; }
 
 .mf-pager > .current {
-    display: block;
-}
+  display: block; }
 
 /* pager transitions */
-
 .mf-pager > .animating, .mf-pager > .animating-out {
-    display: block;
-    overflow: none;
-    -webkit-animation-duration: 250ms;
-}
+  display: block;
+  overflow: none;
+  -webkit-animation-duration: 250ms; }
 
 .mf-pager > .animating {
-    -webkit-animation-timing-function: ease-out;    
-}
+  -webkit-animation-timing-function: ease-out; }
 
 .mf-pager > .animating-out {
-    -webkit-animation-timing-function: ease-in;    
-}
-
-/* scroller styles */
-
-.mf-scroll {
-}
+  -webkit-animation-timing-function: ease-in; }
 
 /* action bar */
-
 .mf-menu {
-    display: -webkit-box; display: -moz-box; display: box;
-    width: 100%; /* moz needs this */
-    background: #000;
-    
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    
-    -webkit-box-pack: center;
-    -moz-box-pack: center;
-    box-pack: center;
-}
+  display: block;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  box-pack: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  width: 100%;
+  /* moz needs this */
+  background: #000; }
 
 .mf-menu a {
-    color: #AAA;
-    display: -webkit-box; display: -moz-box; display: box;
-    font: bold 0.6em "Helvetica Neue", Helvetica;
-    margin: 2px 1px 1px;
-    padding: 2px 0;
-    min-width: 56px;
-    -webkit-font-smoothing: antialiased;
-
-    -webkit-box-flex: 1;
-    -moz-box-flex: 1;
-    box-flex: 1;
-    
-    -webkit-box-orient: vertical;
-    -moz-box-orient: vertical;
-    box-orient: vertical;
-
-    text-decoration: none;
-}
+  display: block;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  box-orient: vertical;
+  color: #AAA;
+  font: bold 0.6em "Helvetica Neue", Helvetica;
+  margin: 2px 1px 1px;
+  padding: 2px 0;
+  min-width: 56px;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none; }
 
 .mf-menu a > strong {
-    display: block;
-    text-align: center;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-}
+  display: block;
+  text-align: center;
+  -webkit-user-select: none;
+  -moz-user-select: none; }
 
 .mf-menu a > strong::before {
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#333));
-    background: -moz-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#333));
-
-    content: ' ';
-    display: block;
-    border: 0px;
-    width: 28px;
-    height: 28px;
-    margin: 2px auto;
-
-    -webkit-mask: 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat;
-    -moz-mask: 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat;
-    mask: 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat;
-}
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cccccc), to(#333333));
+  background: -moz-gradient(linear, 0% 0%, 0% 100%, from(#cccccc), to(#333333));
+  content: ' ';
+  display: block;
+  border: 0px;
+  width: 28px;
+  height: 28px;
+  margin: 2px auto;
+  -webkit-mask: 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat;
+  -moz-mask: 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat;
+  mask: 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat; }
 
 .mf-menu a.active {
-    background: hsla(0, 0%, 60%, 0.3);
-    color: #FFF;
-
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-}
+  background: rgba(153, 153, 153, 0.3);
+  color: #FFF;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px; }
 
 .mf-menu a.active > strong::before {
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#666));;
-    background: -moz-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#666));;
-}
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#666666));
+  background: -moz-gradient(linear, 0% 0%, 0% 100%, from(white), to(#666666)); }
 
 /* footer menu rules for loading and no-iscroll */
-
 html.mf-loading footer.mf-menu, html.mf-noiscroll footer.mf-menu {
-    display: none;
-}
+  display: none; }
 
 /* bars */
-
 .mf-bar {
-    display: -webkit-box;
-}
+  display: block;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box; }
 
 .mf-bar > * {
-    -webkit-box-flex: 1;
-    display: block;
-    margin: 0 2px 2px 0;
-}
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  display: block;
+  margin: 0 2px 2px 0; }
 
 /* buttons */
-
 .mf-button {
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-}
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none; }
 
 .mf-button[disabled] {
-    opacity: 0.7;
-}
-
+  opacity: 0.7; }
 
 /* fx */
-
 *[class*="mfx"] {
-    -webkit-background-clip: padding;
-}
+  -webkit-background-clip: padding; }
 
 .mfx-gradient-simple {
-    background-image: -webkit-gradient(linear, left top, left bottom, 
-        from(hsla(0, 0%, 100%, 0.3)),
-        to(hsla(0, 0%, 0%, 0)));
-}
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.3)), to(rgba(0, 0, 0, 0))); }
 
 .mfx-gradient-simple[class~='reverse'] {
-    background-image: -webkit-gradient(linear, left bottom, left top, 
-        from(hsla(0, 0%, 100%, 0.3)),
-        to(hsla(0, 0%, 0%, 0)));
-}
+  background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(255, 255, 255, 0.3)), to(rgba(0, 0, 0, 0))); }
 
 .mfx-gradient-strong {
-    background-image: -webkit-gradient(linear, left top, left bottom,
-        from(hsla(0, 0%, 100%, 0.6)),
-        to(hsla(0, 0%, 0%, 0)));
-}
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.6)), to(rgba(0, 0, 0, 0))); }
 
 .mfx-gradient-strong[class~='reverse'] {
-    background-image: -webkit-gradient(linear, left bottom, left top, 
-        from(hsla(0, 0%, 100%, 0.6)),
-        to(hsla(0, 0%, 0%, 0)));
-}
+  background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(255, 255, 255, 0.6)), to(rgba(0, 0, 0, 0))); }
 
 .mfx-glass {
-    background-image: -webkit-gradient(linear, left top, left bottom, 
-        from(hsla(0, 80%, 100%, 0.6)),
-        color-stop(0.5, hsla(0, 50%, 100%, 0.1)),
-        color-stop(0.55, hsla(0, 0%, 0%, 0)),
-        to(hsla(0, 0%, 0%, 0)));
-}
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.6)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.55, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0))); }
 
 .mfx-glass[class~='reverse'] {
-    background-image: -webkit-gradient(linear, left top, left bottom, 
-        from(hsla(0, 80%, 100%, 0.6)),
-        color-stop(0.5, hsla(0, 50%, 100%, 0.1)),
-        color-stop(0.55, hsla(0, 0%, 0%, 0)),
-        to(hsla(0, 0%, 0%, 0)));
-}
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.6)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.55, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0))); }
 
 /* flags and options */
-
 .mfo-vert {
-    -webkit-box-orient: vertical;
-    -moz-box-orient: vertical;
-    box-orient: vertical;
-}
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  box-orient: vertical; }
 
-/* transitions */
-
+/* animations */
 @-webkit-keyframes slideIn {
-    0% {
-        -webkit-transform: translateX(100%);
-    } 
-    100% {
-        -webkit-transform: translateX(0);
-    }
-}
+  0% {
+    -webkit-transform: translateX(100%); }
+
+  100% {
+    -webkit-transform: translateX(0); } }
 
 @-webkit-keyframes slideOut {
-    0% {
-        -webkit-transform: translateX(0);
-    } 
-    100% {
-        -webkit-transform: translateX(-100%);
-    }
-}
+  0% {
+    -webkit-transform: translateX(0); }
+
+  100% {
+    -webkit-transform: translateX(-100%); } }
 
 @-webkit-keyframes slideReverseIn {
-    0% {
-        -webkit-transform: translateX(-100%);
-    } 
-    100% {
-        -webkit-transform: translateX(0);
-    }
-}
+  0% {
+    -webkit-transform: translateX(-100%); }
+
+  100% {
+    -webkit-transform: translateX(0); } }
 
 @-webkit-keyframes slideReverseOut {
-    0% {
-        -webkit-transform: translateX(0);
-    } 
-    100% {
-        -webkit-transform: translateX(100%);
-    }
-}
+  0% {
+    -webkit-transform: translateX(0); }
+
+  100% {
+    -webkit-transform: translateX(100%); } }
 
 /* media query customizations */
-
-@media all and (orientation:landscape) { 
-}
-
-@media screen and (max-device-width: 480px) and (orientation:landscape) {
-}
+@media all and (orientation:landscape) {}
+@media screen and (max-device-width: 480px) and (orientation:landscape) {}
