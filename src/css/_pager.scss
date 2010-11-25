@@ -1,7 +1,7 @@
 /* multipage central element */
 
 .mf-pager {
-    @include flexbox-flex(1);
+    @include multi-target(box-flex, 1);
 
     overflow-x: hidden;
     z-index: 1;

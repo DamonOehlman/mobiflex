@@ -1,5 +1,6 @@
-@import "mix_flexbox";
-@import "mix_tweaks";
+@import "css3_browsers";
+@import "css3_flexbox";
+@import "css3_gradients";
 
 /* required html defaults */
 
@@ -32,7 +33,7 @@ html.mf-loaded .splash {
 
 html.mf-iscroll body {
     @include flexbox;
-    @include flexbox-orient(vertical);
+    @include multi-target(box-orient, vertical);
 
     height: 100%;
     width: 100%; /* moz needs this */
@@ -55,7 +56,7 @@ html.mf-loading footer.mf-menu, html.mf-noiscroll footer.mf-menu {
 }
 
 .mf-bar > * {
-    @include flexbox-flex(1);
+    @include multi-target(box-flex, 1);
     display: block;
     margin: 0 2px 2px 0;
 }
@@ -78,7 +79,7 @@ html.mf-loading footer.mf-menu, html.mf-noiscroll footer.mf-menu {
 /* flags and options */
 
 .mfo-vert {
-    @include flexbox-orient(vertical);
+    @include multi-target(box-orient, vertical);
 }
 
 @import "animations";

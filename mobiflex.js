@@ -11,6 +11,8 @@ MOBIFLEX = (function() {
         scrollers = {},
         pageStack = [],
         loadAttempted = {},
+        changeInProgress = false,
+        queued = null,
         options = {
             autoInit: true,
             ajaxLoad: true,
@@ -29,7 +31,7 @@ MOBIFLEX = (function() {
     
     /* internal functions */
     
-    function activatePage(pager, hashedPageId, transition, reverse) {
+    function activatePage(pager, hashedPageId, callback, transition, reverse) {
         var activating = pager.find(hashedPageId),
             animate = capsAnimationEvents && transition && activating[0];
         
@@ -44,6 +46,10 @@ MOBIFLEX = (function() {
                         .removeClass('animating')
                         .css('-webkit-animation-name', null)
                         .unbind('webkitAnimationEnd');
+                        
+                    if (callback) {
+                        callback();
+                    } // if
                 })
                 .addClass('animating')
                 .css('-webkit-animation-name', transition + (reverse ? 'Reverse' : '') + 'In');
@@ -57,10 +63,14 @@ MOBIFLEX = (function() {
         // update the location hash
         location.hash = '!/' + unhash(hashedPageId);
         
-        // debug('activating page: ' + hashedPageId + ', hash change event = ' + hashChangeEvent);
+        debug('activating page: ' + hashedPageId + ', hash change event = ' + hashChangeEvent);
         
         // update the current control stages
-        refreshControlStates();        
+        refreshControlStates();
+        
+        if ((! animate) && callback) {
+            callback();
+        } // if..else        
     } // activatePage
     
     function deactivateCurrent(pager, hashedPageId, callback, transition, reverse) {
@@ -70,7 +80,7 @@ MOBIFLEX = (function() {
         // blur any focused controls, which should hide the on-screen keyboard...
         $(':focus').blur();
         
-        // debug('deactivating current page, animate = ' + animate + ', transition = ' + transition);
+        debug('deactivating current page, animate = ' + animate + ', transition = ' + transition);
 
         if (animate) {
             deactivating
@@ -90,9 +100,8 @@ MOBIFLEX = (function() {
         } // if
         
         // deactivate the current page (if one currently exists)
-        deactivating
-            .removeClass('current')
-            .trigger('pageDeactivate', hashedPageId);
+        deactivating.trigger('pageDeactivate', hashedPageId);
+        pager.children().removeClass('current');
             
         if ((! animate) && callback) {
             callback();
@@ -113,9 +122,12 @@ MOBIFLEX = (function() {
             transition = options.transition;
         } // if
         
+        debug('page change requested: ' + page.id + ', transition = ' + transition);
+        
         // initialise variables
         var pageId = page.id, 
-            pager = $(getPager(page));
+            pager = $(getPager(page)),
+            newPageId;
             
         if (options.iScroll && $(page).hasClass('mf-scroll') && (! scrollers[pageId])) {
             // create the scroller
@@ -130,28 +142,48 @@ MOBIFLEX = (function() {
         } // if
         
         if ('#' + pageId !== currentPage) {
-            $(module).trigger('pageChanging', pageId, unhash(currentPage));
-            
-            // update the current page
-            currentPage = '#' + pageId;
-            
-            // look for the current page in the stack
-            var pageIndex = pageStack.indexOf(currentPage);
-            
-            // if it exists, then we need to pop pages off
-            if (pageIndex >= 0) {
-                pageStack.pop();
-                reverse = true;
+            if (changeInProgress) {
+                queued = {
+                    page: page,
+                    transition: transition,
+                    reverse: reverse
+                };
+                return;
             } // if
-            // otherwise, push the page onto the stack
-            else {
-                pageStack.push(currentPage);
-            } // if..else
             
-            // deactivate the current page, and then activate the new
-            deactivateCurrent(pager, currentPage, function() {
-                activatePage(pager, currentPage, transition, reverse);
-            }, transition, reverse);
+            // determine the new target page id
+            newPageId = requestPageChange(pageId);
+            if (newPageId) {
+                changeInProgress = true;
+                queued = null;
+                
+                // update the current page
+                currentPage = '#' + newPageId;
+
+                // look for the current page in the stack
+                var pageIndex = pageStack.indexOf(currentPage);
+
+                // if it exists, then we need to pop pages off
+                if (pageIndex >= 0) {
+                    pageStack.pop();
+                    reverse = true;
+                } // if
+                // otherwise, push the page onto the stack
+                else {
+                    pageStack.push(currentPage);
+                } // if..else
+
+                // deactivate the current page, and then activate the new
+                deactivateCurrent(pager, currentPage, function() {
+                    activatePage(pager, currentPage, function() {
+                        changeInProgress = false;
+
+                        if (queued) {
+                            changePage(queued.page, queued.transition, queued.reverse);
+                        } // if
+                    }, transition, reverse);
+                }, transition, reverse);                
+            } // if
         } // if        
     } // changePage
     
@@ -264,7 +296,7 @@ MOBIFLEX = (function() {
             pageRegex = new RegExp('^.*#(\!\/)?' + pageUrl, 'i');
             
         globalRegex = pageRegex;
-            
+        debug('refreshing control states, page stack contains ' + pageStack.length + ' items');
         // debug('activating button: ' + pageUrl);
         
         // add the styling for the links that are active
@@ -285,10 +317,29 @@ MOBIFLEX = (function() {
         } // if..else
     } // refreshControlStates
     
+    function requestPageChange(pageId) {
+        // initialise the event data
+        var eventData = {
+            pageId: pageId,
+            currentPage:  unhash(currentPage),
+            allow: true
+        };
+        
+        // fire the page changing event
+        $(module).trigger('pageChanging', eventData);
+        
+        // return the page id (which can be overriden in the page changing event)
+        return eventData.allow ? eventData.pageId : null;
+    } // requestPageChange    
+    
     function switchTo(pageId, resetStack, transition, reverse) {
         // unhash the page id
         pageId = unhash(pageId);
-        resetStack = resetStack || pageStack.indexOf('#' + pageId) < 0;
+        
+        // if reset stack has not been specified, then guess based on the page id
+        resetStack = typeof resetStack !== 'undefined' ? 
+            resetStack : 
+            pageId.indexOf('-') < 0;
         
         // if we need to reset the stack, then do that now
         if (resetStack) {
@@ -375,7 +426,7 @@ MOBIFLEX = (function() {
             globalStack = pageStack;
             if (pageStack.length > 1) {
                 // debug('going back to page: ' + pageStack[pageStack.length - 2]);
-                switchTo(pageStack[pageStack.length - 2]);
+                switchTo(pageStack[pageStack.length - 2], false, undefined, true);
             } // if
         });
         

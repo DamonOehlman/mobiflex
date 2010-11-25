@@ -32,38 +32,21 @@ html.mf-iscroll body {
   /* moz needs this */ }
 
 /* header styles */
-header.mf {
-  display: block;
-  display: -webkit-box;
-  display: -moz-box;
-  display: box;
-  width: 100%;
-  /* moz needs this */ }
-
-header.mf > * {
-  display: block;
-  margin: 8px 4px; }
-
 /* 
 provide the option of using a h1 tag in the header or 
 simply a strong tag.  This provides options on how to layout
 and include HTML pages.
 */
 header.mf h1, header.mf strong {
-  display: block;
-  display: -webkit-box;
-  display: -moz-box;
-  display: box;
   color: rgba(255, 255, 255, 0.9); }
 
 header.mf a {
-  background: -webkit-gradient(linear, left top, left bottom, from(#999999), to(#333333));
-  background: -moz-gradient(linear, left top, left bottom, from(#999999), to(#333333));
-  color: white;
-  padding: 4px 6px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#999999), to(#333333));
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+  color: white;
+  padding: 4px 6px;
   text-decoration: none;
   font-size: 0.8em;
   font-weight: bold; }
@@ -74,7 +57,9 @@ header.mf a.back {
   -moz-mask-box-image: url(img/back-button-mask.png) 20 0 20 12;
   mask-box-image: url(img/back-button-mask.png) 20 0 20 12;
   padding-left: 14px;
-  margin-left: 0px; }
+  margin-left: 0px;
+  float: left;
+  display: none; }
 
 /* multipage central element */
 .mf-pager {
@@ -139,10 +124,11 @@ header.mf a.back {
   text-decoration: none; }
 
 .mf-menu a > strong {
-  display: block;
-  text-align: center;
   -webkit-user-select: none;
-  -moz-user-select: none; }
+  -moz-user-select: none;
+  user-select: none;
+  display: block;
+  text-align: center; }
 
 .mf-menu a > strong::before {
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cccccc), to(#333333));
@@ -158,10 +144,11 @@ header.mf a.back {
   mask: 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat; }
 
 .mf-menu a.active {
-  background: rgba(153, 153, 153, 0.3);
-  color: #FFF;
   -webkit-border-radius: 4px;
-  -moz-border-radius: 4px; }
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  background: rgba(153, 153, 153, 0.3);
+  color: #FFF; }
 
 .mf-menu a.active > strong::before {
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(white), to(#666666));
@@ -202,13 +189,13 @@ html.mf-loading footer.mf-menu, html.mf-noiscroll footer.mf-menu {
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.3)), to(rgba(0, 0, 0, 0))); }
 
 .mfx-gradient-simple[class~='reverse'] {
-  background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(255, 255, 255, 0.3)), to(rgba(0, 0, 0, 0))); }
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(255, 255, 255, 0.3))); }
 
 .mfx-gradient-strong {
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.6)), to(rgba(0, 0, 0, 0))); }
 
 .mfx-gradient-strong[class~='reverse'] {
-  background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(255, 255, 255, 0.6)), to(rgba(0, 0, 0, 0))); }
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(255, 255, 255, 0.6))); }
 
 .mfx-glass {
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.6)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(0.55, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0))); }

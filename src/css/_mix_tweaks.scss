@@ -1,5 +1,0 @@
-@mixin user-select($select: none) {
-    -webkit-user-select: $select;
-    -moz-user-select: $select;
-    user-select: $select;
-}
