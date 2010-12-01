@@ -418,11 +418,11 @@ MOBIFLEX = (function() {
         // we are in a browser window
         
         // preview click events
-        $(document.body).click(handleDocumentClick);
+        $(document.body).bind('click', handleDocumentClick);
         
         // handle click events for menu anchors
-        $('.mf-menu a').click(handleMenuItemClick);
-        $('header.mf a.back').click(function() {
+        $('.mf-menu a').bind('click', handleMenuItemClick);
+        $('header.mf a.back').bind('click', function() {
             globalStack = pageStack;
             if (pageStack.length > 1) {
                 // debug('going back to page: ' + pageStack[pageStack.length - 2]);
@@ -460,6 +460,24 @@ MOBIFLEX = (function() {
         $(document).trigger('mobiflexReady');
     } // init
     
+    function maskDisplay(message, effect) {
+        var mask = $('#mobimask'),
+            maskHTML = '';
+        
+        // if the mask is already defined, simply update the message
+        if (mask[0]) {
+            mask.html(message);
+        }
+        // otherwise, create the mask
+        else {
+            // define the mask html
+            maskHTML = '<div id="mobimask" class="' + 
+                (effect ? effect : 'mfx-gradient-simple') + 
+                '">' + message + '</div>';
+            $(document.body).prepend(maskHTML);
+        } // if..else
+    } // maskDisplay
+    
     function popLastPage() {
         
     } // popLastPage
@@ -492,13 +510,19 @@ MOBIFLEX = (function() {
         } // if
     } // showPage
     
+    function unmaskDisplay() {
+        $('#mobimask').remove();
+    } // unmaskDisplay
+    
     /* define the module */
     
     var module = {
         init: init,
         opt: changeOptions,
+        mask: maskDisplay,
         refresh: refreshPage,
         show: showPage,
+        unmask: unmaskDisplay,
         unwind: popLastPage,
         stack: getStack
     };
