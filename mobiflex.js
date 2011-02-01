@@ -59,6 +59,9 @@ MOBIFLEX = (function() {
         activating
             .addClass('current')
             .trigger('pageActivate', hashedPageId);
+            
+        // now clear the referrer
+        activating.data('referrer', null);
 
         // update the location hash
         location.hash = '!/' + unhash(hashedPageId);
@@ -108,7 +111,7 @@ MOBIFLEX = (function() {
         } // if..else
     } // deactivateCurrent
     
-    function changePage(page, transition, reverse) {
+    function changePage(page, resetStack, transition, reverse) {
         if (! page) {
             page = $('.mf-pager').children()[0];
             
@@ -145,6 +148,7 @@ MOBIFLEX = (function() {
             if (changeInProgress) {
                 queued = {
                     page: page,
+                    resetStack: resetStack,
                     transition: transition,
                     reverse: reverse
                 };
@@ -162,6 +166,11 @@ MOBIFLEX = (function() {
 
                 // look for the current page in the stack
                 var pageIndex = pageStack.indexOf(currentPage);
+                
+                // if we need to reset the stack, then do that now
+                if (resetStack) {
+                    pageStack = [];
+                } // if
 
                 // if it exists, then we need to pop pages off
                 if (pageIndex >= 0) {
@@ -179,7 +188,7 @@ MOBIFLEX = (function() {
                         changeInProgress = false;
 
                         if (queued) {
-                            changePage(queued.page, queued.transition, queued.reverse);
+                            changePage(queued.page, queued.resetStack, queued.transition, queued.reverse);
                         } // if
                     }, transition, reverse);
                 }, transition, reverse);                
@@ -341,19 +350,16 @@ MOBIFLEX = (function() {
             resetStack : 
             pageId.indexOf('-') < 0;
         
-        // if we need to reset the stack, then do that now
-        if (resetStack) {
-            pageStack = [];
-        } // if
+        COG.Log.info('switching page, page id = ' + pageId + ', reset stack = ' + resetStack);
 
         // get the requested page
         getPage(pageId, function(page) {
-            changePage(page, transition, reverse);
+            changePage(page, resetStack, transition, reverse);
         });
     } // switchTo
     
     function unhash(input) {
-        return input ? input.replace(/^.*?#?(\!\/)?([^\/]*)$/, '$2') : '';
+        return input ? input.replace(/^.*?#?(\!\/)?([^#\/]*)$/, '$2') : '';
     } // unhash
     
     /* event handlers */
@@ -373,7 +379,7 @@ MOBIFLEX = (function() {
         } // if
         
         // if hash changes aren't supported, then bind to click events 
-        if (! hashChangeEvent) {
+        if (actionId && (! hashChangeEvent)) {
             switchTo(actionId);
         } // if
     } // handleDocumentClick
@@ -423,11 +429,7 @@ MOBIFLEX = (function() {
         // handle click events for menu anchors
         $('.mf-menu a').bind('click', handleMenuItemClick);
         $('header.mf a.back').bind('click', function() {
-            globalStack = pageStack;
-            if (pageStack.length > 1) {
-                // debug('going back to page: ' + pageStack[pageStack.length - 2]);
-                switchTo(pageStack[pageStack.length - 2], false, undefined, true);
-            } // if
+            popLastPage();
         });
         
         // initialise the pager to the use the appropriate first page
@@ -479,7 +481,10 @@ MOBIFLEX = (function() {
     } // maskDisplay
     
     function popLastPage() {
-        
+        if (pageStack.length > 1) {
+            // debug('going back to page: ' + pageStack[pageStack.length - 2]);
+            switchTo(pageStack[pageStack.length - 2], false, undefined, true);
+        } // if
     } // popLastPage
     
     function refreshPage(pageId) {
@@ -498,16 +503,7 @@ MOBIFLEX = (function() {
             transition: options.transition
         }, args);
         
-        // standardize the page id
-        pageId = '#' + unhash(pageId);
-        
-        // find the specified element
-        var targetPage = getPage(pageId);
-        
-        // if found, update the location hash
-        if (targetPage) {
-            switchTo(pageId, opts.resetStack, opts.transition);
-        } // if
+        switchTo(pageId, opts.resetStack, opts.transition);
     } // showPage
     
     function unmaskDisplay() {
