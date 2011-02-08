@@ -137,10 +137,16 @@ MOBIFLEX = (function() {
             scrollers[pageId] = new iScroll(pageId, {
                 checkDOMChanges: false
             });
-            
+        } // if
+        
+        // if we have a scroller for the page, then refresh it
+        if (scrollers[pageId]) {
             // refresh the scroller
             setTimeout(function() {
                 scrollers[pageId].refresh();
+                
+                // TODO: make the scroll to top configurable
+                scrollers[pageId].scrollTo(0, 0);
             }, 0);
         } // if
         
@@ -487,12 +493,17 @@ MOBIFLEX = (function() {
         } // if
     } // popLastPage
     
-    function refreshPage(pageId) {
+    function refreshPage(pageId, callback) {
         pageId = unhash(pageId);
         
         if (scrollers[pageId]) {
             setTimeout(function() {
                 scrollers[pageId].refresh();
+                
+                // if we have a callback, then trigger it and pass the scroller through
+                if (callback) {
+                    callback(scrollers[pageId]);
+                } // if
             }, 0);
         } // if
     } // refreshPage
