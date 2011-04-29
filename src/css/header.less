@@ -13,8 +13,8 @@ header.mf h1, header.mf strong {
 }
 
 header.mf a {
-    @include gradient-simple(#999, #333, background-image);
-    @include multi-target(border-radius, 4px);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#999), to(#333));
+    .border-radius(4px);
     
     color: white;
     padding: 4px 6px;
@@ -27,7 +27,7 @@ header.mf a {
 /* header buttons */
 
 header.mf a.back {
-    @include multi-target(mask-box-image, url(img/back-button-mask.png) 20 0 20 12);
+    .mask-box-image(url(img/back-button-mask.png) 20 0 20 12);
 
     padding-left: 14px;
     margin-left: 0px;

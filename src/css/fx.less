@@ -5,19 +5,19 @@
 }
 
 .mfx-gradient-simple {
-    @include gradient-simple(hsla(0, 0%, 100%, 0.3), hsla(0, 0%, 0%, 0));
+    background: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 100%, 0.3)), to(hsla(0, 0%, 0%, 0)));
 }
 
 .mfx-gradient-simple[class~='reverse'] {
-    @include gradient-simple(hsla(0, 0%, 0%, 0), hsla(0, 0%, 100%, 0.3));
+    background: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 0%, 0)), to(hsla(0, 0%, 100%, 0.3)));
 }
 
 .mfx-gradient-strong {
-    @include gradient-simple(hsla(0, 0%, 100%, 0.6), hsla(0, 0%, 0%, 0));
+    background: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 100%, 0.6)), to(hsla(0, 0%, 0%, 0)));
 }
 
 .mfx-gradient-strong[class~='reverse'] {
-    @include gradient-simple(hsla(0, 0%, 0%, 0), hsla(0, 0%, 100%, 0.6));
+    background: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 0%, 0)), to(hsla(0, 0%, 100%, 0.6)));
 }
 
 .mfx-glass {

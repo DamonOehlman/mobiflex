@@ -1,18 +1,18 @@
 /* action bar */
 
 .mf-menu {
-    @include flexbox;
-    @include multi-target(box-pack, center);
-    @include multi-target(user-select, none);
+    .flexbox;
+    .box-pack(center);
+    .user-select(none);
     
     width: 100%; /* moz needs this */
     background: #000;
 }
 
 .mf-menu a {
-    @include flexbox;
-    @include multi-target(box-flex, 1);
-    @include multi-target(box-orient, vertical);
+    .flexbox;
+    .box-flex(1);
+    .box-orient(vertical);
     
     color: #AAA;
     font: bold 0.6em "Helvetica Neue", Helvetica;
@@ -24,7 +24,7 @@
 }
 
 .mf-menu a > strong {
-    @include multi-target(user-select, none);
+    .user-select(none);
     
     display: block;
     text-align: center;
@@ -41,17 +41,17 @@
     height: 28px;
     margin: 2px auto;
     
-    @include multi-target(mask, 50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat);
+    .mask(50% 50% url(data:image/png;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==) no-repeat);
 }
 
 .mf-menu a.active {
-    @include multi-target(border-radius, 4px);
+    .border-radius(4px);
     
     background: hsla(0, 0%, 60%, 0.3);
     color: #FFF;
 }
 
 .mf-menu a.active > strong::before {
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#666));;
-    background: -moz-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#666));;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#666));
+    background: -moz-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#666));
 }

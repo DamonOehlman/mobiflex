@@ -1,6 +1,6 @@
-@import "css3_browsers";
-@import "css3_flexbox";
-@import "css3_gradients";
+@import "lib/css3";
+@import "lib/flexbox";
+/* @import "lib/gradients"; */
 
 /* required html defaults */
 
@@ -15,6 +15,12 @@ html.mf-iscroll {
 body {
     margin: 0;
     overflow-x: hidden;
+
+    .flexbox;
+    .box-orient(vertical);
+
+    height: 100%;
+    width: 100%; /* moz needs this */
 }
 
 /* mask display */
@@ -43,14 +49,6 @@ html.mf-loaded .splash {
     display: none;
 } 
 
-html.mf-iscroll body {
-    @include flexbox;
-    @include multi-target(box-orient, vertical);
-
-    height: 100%;
-    width: 100%; /* moz needs this */
-}
-
 @import "header";
 @import "pager";
 @import "menu";
@@ -58,17 +56,16 @@ html.mf-iscroll body {
 /* footer menu rules for loading and no-iscroll */
 
 html.mf-loading footer.mf-menu, html.mf-noiscroll footer.mf-menu {
-    display: none;
 }
 
 /* bars */
 
 .mf-bar {
-    @include flexbox;
+    .flexbox;
 }
 
 .mf-bar > * {
-    @include multi-target(box-flex, 1);
+    .box-flex(1);
     display: block;
     margin: 0 2px 2px 0;
 }
@@ -91,10 +88,10 @@ html.mf-loading footer.mf-menu, html.mf-noiscroll footer.mf-menu {
 /* flags and options */
 
 .mfo-vert {
-    @include multi-target(box-orient, vertical);
+    .box-orient(vertical);
 }
 
-@import "animations";
+@import "animations.css";
 
 /* media query customizations */
 

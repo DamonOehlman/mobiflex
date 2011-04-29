@@ -1,3 +1,0 @@
-@mixin gradient-simple($from, $to, $targetProp: background-image) {
-    #{$targetProp}: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
-}

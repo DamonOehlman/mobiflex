@@ -1,14 +1,16 @@
 /* multipage central element */
 
 .mf-pager {
-    @include multi-target(box-flex, 1);
+    .box-flex(1);
 
     overflow-x: hidden;
     z-index: 1;
+    .flexbox;
 }
 
 .mf-pager > * {
     display: none;
+    .box-flex(1);
     width: 100%;
 }
 

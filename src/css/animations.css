@@ -1,0 +1,37 @@
+/* animations */
+
+@-webkit-keyframes slideIn {
+    0% {
+        -webkit-transform: translate3d(100%, 0, 0);
+    } 
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+}
+
+@-webkit-keyframes slideOut {
+    0% {
+        -webkit-transform: translate3d(0, 0, 0);
+    } 
+    100% {
+        -webkit-transform: translate3d(-100%, 0, 0);
+    }
+}
+
+@-webkit-keyframes slideReverseIn {
+    0% {
+        -webkit-transform: translate3d(-100%, 0, 0);
+    } 
+    100% {
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+}
+
+@-webkit-keyframes slideReverseOut {
+    0% {
+        -webkit-transform: translate3d(0, 0, 0);
+    } 
+    100% {
+        -webkit-transform: translate3d(100%, 0, 0);
+    }
+}

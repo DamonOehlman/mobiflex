@@ -1,4 +1,6 @@
 MOBIFLEX = (function() {
+    //= require <cog/cogs/observable>
+    
     // initialise constants
     // empty image converted using http://www.motobit.com/util/base64-decoder-encoder.asp
     // var EMPTY_IMAGE = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAANSURBVAiZY/j//z8DAAj8Av6Fzas0AAAAAElFTkSuQmCC';
@@ -10,12 +12,10 @@ MOBIFLEX = (function() {
         hashChangeEvent = 'onhashchange' in window,
         scrollers = {},
         pageStack = [],
-        loadAttempted = {},
         changeInProgress = false,
         queued = null,
         options = {
             autoInit: true,
-            ajaxLoad: true,
             createContainers: true,
             iScroll: true,
             pagePath: '',
@@ -81,7 +81,9 @@ MOBIFLEX = (function() {
             animate = capsAnimationEvents && transition && deactivating[0];
         
         // blur any focused controls, which should hide the on-screen keyboard...
-        $(':focus').blur();
+        $(':focus').each(function() {
+            this.blur();
+        });
         
         debug('deactivating current page, animate = ' + animate + ', transition = ' + transition);
 
@@ -202,24 +204,8 @@ MOBIFLEX = (function() {
         } // if        
     } // changePage
     
-    function createPage(pageId, content) {
-        var container = $('.mf-pager')[0],
-            pageContent = content;
-            
-        // if we are creating containers for the loaded content, 
-        // then wrap the page in div
-        if (options.createContainers) {
-            pageContent = '<div id="' + pageId + '" class="mf-scroll">' + content + '</div>';
-        } // if
-
-        $(container ? container : document.body).append(pageContent);
-        // debug('content = ' + content);
-        $(module).trigger('pageCreate', pageId);
-        return $('#' + pageId)[0];
-    } // createPage
-    
     function debug(message) {
-        console.debug(message);
+        // console.debug(message);
     } // debug
     
     function getPage(pageId, callback) {
@@ -237,27 +223,7 @@ MOBIFLEX = (function() {
         }
         // otherwise, attempt to load the page into the document and then fire the callback
         else if (callback) {
-            // debug('attempting ajax load, loadattempted = ' + loadAttempted[pageId]);
-            
-            if (options.ajaxLoad && $.ajax && (! loadAttempted[pageId])) {
-                // flag that we have attempted to load the page previously
-                loadAttempted[pageId] = true;
-                
-                // attempt to load the page
-                $.ajax({
-                    url: options.pagePath + pageId + options.pageExt, 
-                    success: function(content, status, rawRequest) {
-                        callback(createPage(pageId, content));
-                    },
-                    error: function(rawRequest, status, error) {
-                        debug('could not load page: ' + pageId);
-                        callback(null);
-                    }
-                });
-            }
-            else {
-                callback(null);
-            } // if..else
+            callback(null);
         } // if..else
         
         // return the page
@@ -273,6 +239,7 @@ MOBIFLEX = (function() {
     } // getParent
     
     function iScrollInit() {
+        /*
         // initialise variables
         options.iScroll = 
             options.iScroll && 
@@ -304,6 +271,7 @@ MOBIFLEX = (function() {
                 } // if..else
             } // if
         } // if
+        */
     } // iScrollCheck
     
     function refreshControlStates() {
@@ -341,7 +309,7 @@ MOBIFLEX = (function() {
         };
         
         // fire the page changing event
-        $(module).trigger('pageChanging', eventData);
+        module.trigger('pageChanging', eventData);
         
         // return the page id (which can be overriden in the page changing event)
         return eventData.allow ? eventData.pageId : null;
@@ -356,7 +324,7 @@ MOBIFLEX = (function() {
             resetStack : 
             pageId.indexOf('-') < 0;
         
-        COG.Log.info('switching page, page id = ' + pageId + ', reset stack = ' + resetStack);
+        // ('switching page, page id = ' + pageId + ', reset stack = ' + resetStack);
 
         // get the requested page
         getPage(pageId, function(page) {
@@ -407,7 +375,7 @@ MOBIFLEX = (function() {
             actionId = this.href.replace(/^.*#(.*)$/, '$1');
             
         // fire the action exec method
-        $(module).trigger('actionSelect', unhash(actionId));
+        module.trigger('actionSelect', unhash(actionId));
     } // handleMenuItemClick
     
     /* exports */
@@ -438,7 +406,7 @@ MOBIFLEX = (function() {
         $(document.body).bind('click', handleDocumentClick);
         
         // handle click events for menu anchors
-        $('.mf-menu a').bind('click', handleMenuItemClick);
+        $('.mf-menu a').live('click', handleMenuItemClick);
         $('header.mf a.back').bind('click', function() {
             popLastPage();
         });
@@ -528,7 +496,7 @@ MOBIFLEX = (function() {
     
     /* define the module */
     
-    var module = {
+    var module = _observable({
         init: init,
         opt: changeOptions,
         mask: maskDisplay,
@@ -537,7 +505,7 @@ MOBIFLEX = (function() {
         unmask: unmaskDisplay,
         unwind: popLastPage,
         stack: stack
-    };
+    });
     
     /* initialization */
     

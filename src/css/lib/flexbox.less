@@ -1,0 +1,28 @@
+.flexbox {
+    display: block;
+    -webkit-display: box;
+    display: -webkit-box;
+    -moz-display: flexbox;
+    display: flexbox;
+}
+
+.box-orient(@orientation) {
+    -webkit-box-orient: @orientation;
+    -moz-box-orient: @orientation;
+    -o-box-orient: @orientation;
+    box-orient: @orientation;
+}
+
+.box-flex(@flex) {
+    -webkit-box-flex: @flex;
+    -moz-box-flex: @flex;
+    -o-box-flex: @flex;
+    box-flex: @flex;
+}
+
+.box-pack(@pack) {
+    -webkit-box-pack: @pack;
+    -moz-box-pack: @pack;
+    -o-box-pack: @pack;
+    box-pack: @pack;
+}
