@@ -416,8 +416,13 @@ MOBIFLEX = (function() {
         options = $.extend(options, params);
     } // changeOptions
     
-    function getStack() {
-        return pageStack;
+    function stack(replacement) {
+        if (typeof replacement != 'undefined') {
+            return pageStack = [].concat(replacement);
+        }
+        else {
+            return pageStack;
+        } // if..else
     } // getStack
     
     function init() {
@@ -531,7 +536,7 @@ MOBIFLEX = (function() {
         show: showPage,
         unmask: unmaskDisplay,
         unwind: popLastPage,
-        stack: getStack
+        stack: stack
     };
     
     /* initialization */
