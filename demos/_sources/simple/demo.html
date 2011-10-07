@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" class="no-js mf-loading">
+<head>
+<meta charset="utf-8">
+<title>Mobiflex Demo</title>
+<link rel="apple-touch-startup-image" href="images/splash-screen.png" />
+<link rel="apple-touch-icon" href="images/app-icon.png" />
+<!-- iphone viewport configuration -->
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link href="../dist/css/mobiflex.css" rel="stylesheet" />
+<link href="../dist/css/themes/ios.css" rel="stylesheet" />
+</head>
+<body>
+	<header class='mf'>
+		<a class='back mf-lefty' href='#'>Back</a>
+	</header>
+	<div id="main-container" class="mf-pager">
+		<div class="current">
+			<h1>Page 1</h1>
+		</div>
+		<div>
+			<h1>Page 2</h2>
+		</div>
+	</div>
+	<footer id="navmenu" class="mf-menu">
+		<a href='#!/map'><strong>Map</strong></a>
+		<a href='#!/show'><strong>Show</strong></a>
+		<a href='#!/search'><strong>Search</strong></a>
+		<a href='#!/directions'><strong>Directions</strong></a>
+		<a href='#!/settings'><strong>Settings</strong></a>
+	</footer>
+
+	<!-- initialise jquery and jqtouch -->
+	<script src="_lib/zepto.js"></script>
+	<script src="../dist/mobiflex.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+    "name": "mobiflex",
+    "description": "Flexbox Oriented Mobile UI Framework",
+    "tags": ["mobile", "ui"],
+    "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
+    "version": "0.0.1",
+    "main": "index",
+    
+    "engines": { "node": "0.4.x || 0.5.x" },
+    
+    "dependencies": {
+    },
+    
+    "devDependencies": {
+        "interleave": "0.0.x",
+        "less": "1.1.x"
+    },
+    
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/DamonOehlman/mobiflex.git"
+    },
+    
+    "bugs": {
+        "web": "http://github.com/DamonOehlman/mobiflex/issues"
+    },
+
+    "contributors": [
+    ]
+}
