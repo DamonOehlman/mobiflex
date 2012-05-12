@@ -57,7 +57,8 @@ provide the option of using a h1 tag in the header or
 simply a strong tag.  This provides options on how to layout
 and include HTML pages.
 */
-header.mf h1, header.mf strong {
+header.mf h1,
+header.mf strong {
   color: rgba(255, 255, 255, 0.9);
 }
 header.mf a {
@@ -108,7 +109,8 @@ header.mf a.back {
   display: block;
 }
 /* pager transitions */
-.mf-pager > .animating, .mf-pager > .animating-out {
+.mf-pager > .animating,
+.mf-pager > .animating-out {
   display: block;
   overflow: none;
   -webkit-animation-duration: 250ms;
@@ -250,9 +252,9 @@ header.mf a.back {
   box-orient: vertical;
 }
 /* media query customizations */
-@media all and (orientation:landscape) {
+@media all and (orientation: landscape) {
   
 }
-@media screen and (max-device-width: 480px) and (orientation:landscape) {
+@media screen and (max-device-width: 480px) and (orientation: landscape) {
   
 }
